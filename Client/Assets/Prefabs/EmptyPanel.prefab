@@ -21,25 +21,13 @@ GameObject:
   - component: {fileID: 224000014024676948}
   - component: {fileID: 223000012116493056}
   - component: {fileID: 114000013318021764}
-  - component: {fileID: 114000012950738392}
   m_Layer: 5
-  m_Name: _EmptyPanel
+  m_Name: EmptyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114000012950738392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013098876856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52bed2e091010994b9c68670a5b02f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013318021764
 MonoBehaviour:
   m_ObjectHideFlags: 1
