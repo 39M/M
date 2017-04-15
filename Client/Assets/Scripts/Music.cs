@@ -15,7 +15,7 @@ public class Music
 
     public string bannerFilename;
 
-    public List<Beatmap> beatmapList;
+    public List<Beatmap> beatmapList = new List<Beatmap>();
 
     public static Music FromJson(string json)
     {
@@ -37,7 +37,7 @@ public class Beatmap
     public string difficultyName;
     public SimpleColor difficultyDisplayColor;
 
-    public List<Note> noteList;
+    public List<Note> noteList = new List<Note>();
 }
 
 public enum NoteType

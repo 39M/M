@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        #region Json.Net Test
         string jsonString = new Music
         {
             title = "title",
@@ -77,6 +78,8 @@ public class GameManager : MonoBehaviour
         Music music = Music.FromJson(jsonString);
 
         Debug.Log(JsonConvert.SerializeObject(music.beatmapList[1], Formatting.Indented));
+        #endregion
+
     }
 
     void Update()
