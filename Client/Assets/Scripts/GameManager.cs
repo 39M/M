@@ -5,6 +5,14 @@ using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
+    Music music;
+    Beatmap beatmap;
+    List<Note> noteList;
+    List<Note>.Enumerator noteEnum;
+    Note currentNote;
+
+    new AudioSource audio;
+    AudioClip hitSoundClip;
 
     void Start()
     {
@@ -80,10 +88,47 @@ public class GameManager : MonoBehaviour
         Debug.Log(JsonConvert.SerializeObject(music.beatmapList[1], Formatting.Indented));
         #endregion
 
+        FindComponents();
+
+        // Load beatmap
+        var beatmapAsset = Resources.Load<TextAsset>("Music/Sample");
+        music = Music.FromJson(beatmapAsset.text);
+        beatmap = music.beatmapList[0];
+        noteList = beatmap.noteList;
+        noteEnum = noteList.GetEnumerator();
+        noteEnum.MoveNext();
+        currentNote = noteEnum.Current;
+
+        // Load audio
+        string audioPath = "Music/" + music.audioFilename;
+        audioPath = audioPath.Remove(audioPath.LastIndexOf('.'));
+        audio.clip = Resources.Load<AudioClip>(audioPath);
+        audio.Play();
+        hitSoundClip = Resources.Load<AudioClip>("Music/HitSound");
+    }
+
+    void FindComponents()
+    {
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        // 同时可能有多个 Note
+        while ((currentNote != null) && (currentNote.time < audio.time))
+        {
+            audio.PlayOneShot(hitSoundClip);
+            Debug.Log(currentNote.time);
 
+            if (noteEnum.MoveNext())
+            {
+                currentNote = noteEnum.Current;
+            }
+            else
+            {
+                // Beatmap end
+                currentNote = null;
+            }
+        }
     }
 }

@@ -1,0 +1,4507 @@
+{
+  "title": "Croatian Rhapsody",
+  "artist": "Maksim Mrvica",
+  "audioFilename": "Croatian_Rhapsody.mp3",
+  "previewTime": 62.483,
+  "soundEffectFilename": null,
+  "bannerFilename": null,
+  "beatmapList": [
+    {
+      "creator": "haha5957",
+      "version": "Allegro Vivace",
+      "difficulty": 0,
+      "difficultyName": null,
+      "difficultyDisplayColor": null,
+      "noteList": [
+        {
+          "type": 0,
+          "time": 2.784,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 3.096,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 3.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 4.033,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 4.189,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 4.345,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 4.669,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 5.294,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 5.606,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 5.919,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 6.231,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 6.387,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 6.544,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 7.012,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 7.169,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 7.794,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 7.95,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 8.106,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 8.419,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 8.731,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 8.887,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 9.044,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 9.356,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 9.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 10.149,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 10.305,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 10.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 11.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 11.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 11.555,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 11.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 12.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 12.18,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 12.805,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 13.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 13.43,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 13.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 13.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 14.055,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 14.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 14.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 15.305,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 15.461,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 15.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 15.93,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 16.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 16.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 17.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 17.18,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 17.786,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 18.098,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 18.723,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 18.879,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 19.036,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 19.348,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 19.973,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 20.286,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 20.442,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 20.598,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 21.223,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 21.379,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 21.84,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 21.996,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 22.152,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 22.777,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 23.09,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 23.715,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 23.871,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 24.027,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 24.34,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 25.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 25.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 25.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 26.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 26.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 26.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 26.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 27.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 27.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 27.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 28.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 28.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 29.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 29.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 29.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 30.285,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 30.441,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 30.606,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 31.231,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 31.387,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 31.543,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 32.168,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 32.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 32.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 33.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 33.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 33.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 34.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 34.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 34.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 34.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 34.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 35.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 35.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 36.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 36.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 37.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 37.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 37.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 37.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 38.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 38.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 38.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 38.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 39.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 40.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 40.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 40.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 41.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 41.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 41.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 42.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 42.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 42.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 42.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 43.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 44.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 44.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 44.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 44.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 45.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 45.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 45.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 45.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 45.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 46.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 46.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 46.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 46.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 46.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 47.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 47.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 47.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 47.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 48.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 49.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 49.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 49.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 49.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 50.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 50.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 50.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 51.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 51.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 51.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 52.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 52.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 53.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 53.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 53.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 53.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 53.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 54.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 54.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 54.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 54.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 55.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 55.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 55.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 55.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 56.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 56.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 56.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 57.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 57.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 57.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 58.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 58.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 58.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 58.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 59.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 59.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 59.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 59.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 60.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 60.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 60.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 61.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 61.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 61.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 62.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 62.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 63.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 63.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 63.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 64.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 64.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 64.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 64.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 65.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 65.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 65.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 66.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 66.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 66.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 67.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 67.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 67.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 67.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 68.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 69.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 69.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 69.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 69.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 70.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 70.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 70.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 71.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 71.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 71.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 72.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 72.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 72.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 72.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 73.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 74.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 74.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 74.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 74.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 75.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 75.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 75.918,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 76.23,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 76.543,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 76.855,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 77.168,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 77.48,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 77.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 77.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 78.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 79.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 79.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 79.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 79.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 80.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 80.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 80.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.712,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 81.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.337,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 82.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 83.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 84.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 85.149,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 85.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 92.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 94.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 95.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 95.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 95.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 95.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 96.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 96.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 96.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 96.712,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 96.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 97.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 97.337,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 97.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 97.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 98.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 98.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 98.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 99.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 99.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 99.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 100.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 100.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 100.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 100.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 101.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 101.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 101.712,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 101.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 102.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 102.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 102.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 103.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 103.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 103.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 103.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 104.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 104.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 104.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 105.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 105.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 105.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 106.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 106.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 106.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 106.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 107.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 107.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 107.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 108.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 108.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 108.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 109.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 109.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 109.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 110.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 110.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 110.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 111.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 111.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 111.712,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 111.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 112.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 112.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 112.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 113.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 113.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 113.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 114.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 114.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 114.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 115.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 115.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 115.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 115.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 115.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 116.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 116.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 116.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 116.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 117.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 117.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 117.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 118.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 119.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 119.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 120.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 120.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 120.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 120.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 120.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 121.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 121.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 121.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 121.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 122.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 122.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 123.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 123.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 123.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 124.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 124.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 124.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 124.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 125.149,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 125.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 125.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 125.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 126.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 126.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 126.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 127.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 127.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 127.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 128.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 128.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 128.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 129.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 129.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 129.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 129.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 130.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 130.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 130.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 130.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 130.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 131.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 131.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 131.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 131.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 131.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 132.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 132.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 132.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 133.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 134.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 135.149,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 135.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 135.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 135.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 135.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.712,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 136.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.337,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 137.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 138.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 138.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 138.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 138.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 139.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 140.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 140.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 140.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 140.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 141.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 141.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 141.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 142.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 142.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 142.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 142.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 143.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 143.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 143.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 143.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.212,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 144.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 145.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 145.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 145.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 145.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 146.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 146.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 147.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 147.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 147.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 147.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 148.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 148.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 148.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 148.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 148.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 149.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 149.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 149.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 149.837,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 149.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 150.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 150.462,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 150.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 150.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 150.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 151.087,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 151.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 151.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 151.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 152.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 152.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 152.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 152.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 152.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 153.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 153.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 153.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 153.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 154.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 154.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 154.524,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 154.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 154.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 155.149,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 155.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 155.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 156.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 156.399,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 156.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 156.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 157.024,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 157.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 157.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 158.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 158.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 158.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 158.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 158.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 159.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 159.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 159.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 159.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 160.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 160.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 160.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 160.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 161.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 161.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 161.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 162.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 162.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 162.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 163.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 163.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 163.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 163.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 163.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 164.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 164.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 164.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 164.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 165.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 165.618,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 165.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 166.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 166.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 166.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.571,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.649,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.727,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 167.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 168.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 168.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 168.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 168.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 169.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 169.368,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 169.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 169.993,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 170.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 170.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 170.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 171.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 171.868,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 172.181,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 172.493,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 172.806,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 172.962,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.118,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.274,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.431,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.587,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.743,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 173.899,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 174.056,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 174.681,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 175.306,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 175.774,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 175.931,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 176.243,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 176.556,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 176.898,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 177.256,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 177.628,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.156,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.625,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 178.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 179.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 179.406,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 179.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 179.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 180.031,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 180.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 180.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 180.812,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 181.125,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 181.437,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 181.593,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 182.062,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 182.218,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 182.375,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 183.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 183.156,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 183.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 183.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 183.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 184.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 184.406,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 184.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 184.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 185.031,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 185.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 185.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 185.812,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 186.125,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 186.593,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 187.062,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 187.218,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 187.375,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.468,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.625,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 188.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 189.093,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 189.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 189.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 189.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 190.031,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 190.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 190.343,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 190.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 190.812,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 191.125,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 191.281,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 191.437,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 191.593,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 191.75,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 192.218,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 192.375,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 192.843,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 193.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 193.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 193.625,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 193.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 193.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 194.093,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 194.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 194.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 194.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 195.031,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 195.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 195.343,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 195.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 195.656,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 197.375,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.156,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.625,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 198.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 199.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 199.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 199.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 200.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 200.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 200.656,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 200.812,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 201.125,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 201.437,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 201.593,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 201.749,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 202.062,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 202.218,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 202.374,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.0,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.156,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.312,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.625,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.781,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 203.937,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 204.25,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 204.562,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 204.875,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 205.187,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 205.5,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 205.656,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 205.812,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 206.125,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 206.437,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 206.75,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 207.062,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 207.375,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 207.453,
+          "speed": 0.0,
+          "color": null
+        },
+        {
+          "type": 0,
+          "time": 209.875,
+          "speed": 0.0,
+          "color": null
+        }
+      ]
+    }
+  ]
+}
