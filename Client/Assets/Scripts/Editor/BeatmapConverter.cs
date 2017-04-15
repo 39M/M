@@ -120,7 +120,7 @@ public class BeatmapConverter
 
                         beatmap.noteList.Add(new Note
                         {
-                            time = float.Parse(noteInfo[2]) / 1000,
+                            time = float.Parse(noteInfo[5]) / 1000,
                             // 其他 Spinner 相关的处理
                         });
                     }
