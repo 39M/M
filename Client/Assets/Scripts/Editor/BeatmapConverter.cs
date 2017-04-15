@@ -69,7 +69,7 @@ public class BeatmapConverter
                     }
                     else if (line.StartsWith("PreviewTime"))
                     {
-                        music.previewTime = float.Parse(value);
+                        music.previewTime = float.Parse(value) / 1000;
                     }
                     else if (line.StartsWith("Creator"))
                     {
@@ -79,10 +79,10 @@ public class BeatmapConverter
                     {
                         beatmap.version = value;
                     }
-                    else if (line.StartsWith("OverallDifficulty"))
-                    {
-                        beatmap.difficulty = int.Parse(value);
-                    }
+                    //else if (line.StartsWith("OverallDifficulty"))
+                    //{
+                    //    beatmap.difficulty = int.Parse(value);
+                    //}
                 }
                 else
                 {
