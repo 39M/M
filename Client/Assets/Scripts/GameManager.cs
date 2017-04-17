@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using Leap;
+using Leap.Unity;
 
 public class GameManager : MonoBehaviour
 {
+    LeapProvider provider;
+
     Music music;
     Beatmap beatmap;
     List<Note> noteList;
@@ -101,6 +105,9 @@ public class GameManager : MonoBehaviour
         Debug.Log(JsonConvert.SerializeObject(music.beatmapList[1], Formatting.Indented));
         #endregion
 
+        // Init Leap
+        provider = FindObjectOfType<LeapProvider>() as LeapProvider;
+
         // Load beatmap
         var beatmapAsset = Resources.Load<TextAsset>("Music/Sample");
         music = Music.FromJson(beatmapAsset.text);
@@ -123,6 +130,18 @@ public class GameManager : MonoBehaviour
         CreateNotes();
 
         MoveNotes();
+
+        Frame frame = provider.CurrentFrame;
+        foreach (Hand hand in frame.Hands)
+        {
+            if (hand.IsLeft)
+            {
+                transform.position = hand.PalmPosition.ToVector3() +
+                                     hand.PalmNormal.ToVector3() *
+                                    (transform.localScale.y * .5f + .02f);
+                transform.rotation = hand.Basis.rotation.ToQuaternion();
+            }
+        }
     }
 
     void CreateNotes()
