@@ -11,8 +11,21 @@ public class GameManager : MonoBehaviour
     List<Note>.Enumerator noteEnum;
     Note currentNote;
 
+    public GameObject notePrefab;
+    List<GameObject> noteObjectList;
+    private float defaultNoteSpawnDistance = 50f;
+    private float defaultNoteSpeed = 10f;
+    int notePassed = 0;
+
     new AudioSource audio;
     AudioClip hitSoundClip;
+
+    void Awake()
+    {
+        noteObjectList = new List<GameObject>();
+
+        audio = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -88,8 +101,6 @@ public class GameManager : MonoBehaviour
         Debug.Log(JsonConvert.SerializeObject(music.beatmapList[1], Formatting.Indented));
         #endregion
 
-        FindComponents();
-
         // Load beatmap
         var beatmapAsset = Resources.Load<TextAsset>("Music/Sample");
         music = Music.FromJson(beatmapAsset.text);
@@ -107,18 +118,19 @@ public class GameManager : MonoBehaviour
         hitSoundClip = Resources.Load<AudioClip>("Music/HitSound");
     }
 
-    void FindComponents()
-    {
-        audio = GetComponent<AudioSource>();
-    }
-
     void Update()
     {
-        // 同时可能有多个 Note
-        while ((currentNote != null) && (currentNote.time < audio.time))
+        CreateNotes();
+
+        MoveNotes();
+    }
+
+    void CreateNotes()
+    {
+        // 同时可能有多个 Note, 所以用 while
+        while ((currentNote != null) && TimesToCreate(currentNote))
         {
-            audio.PlayOneShot(hitSoundClip);
-            Debug.Log(currentNote.time);
+            CreateNextNote();
 
             if (noteEnum.MoveNext())
             {
@@ -126,9 +138,50 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // Beatmap end
+                // 已经生成了最后一个 Note
                 currentNote = null;
             }
+        }
+    }
+
+    bool TimesToCreate(Note note)
+    {
+        float timeAdvance = defaultNoteSpawnDistance / defaultNoteSpeed;
+        return (currentNote.time - timeAdvance < audio.time);
+    }
+
+    void CreateNextNote()
+    {
+        Vector3 spawnPos = new Vector3(Random.Range(-3f, 3f), Random.Range(-1.5f, 1.5f), defaultNoteSpawnDistance);
+        GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+        noteObjectList.Add(noteObject);
+    }
+
+    void MoveNotes()
+    {
+        for (int i = 0; i < noteObjectList.Count; i++)
+        {
+            GameObject noteObject = noteObjectList[i];
+            Note note = noteList[i + notePassed];
+
+            float posOffset = (note.time - audio.time) * defaultNoteSpeed;
+            Vector3 updatedPos = noteObject.transform.position;
+            updatedPos.z = posOffset;
+            noteObject.transform.position = updatedPos;
+
+            if (noteObject.transform.position.z < 0)
+            {
+                Destroy(noteObject);
+                noteObjectList[i] = null;
+
+                audio.PlayOneShot(hitSoundClip);
+            }
+        }
+
+        while (noteObjectList.Count > 0 && noteObjectList[0] == null)
+        {
+            noteObjectList.RemoveAt(0);
+            notePassed++;
         }
     }
 }
