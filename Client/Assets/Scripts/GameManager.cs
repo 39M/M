@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject notePrefab;
     List<GameObject> noteObjectList;
-    private float defaultNoteSpawnDistance = 50f;
-    private float defaultNoteSpeed = 10f;
+    private float defaultNoteSpawnDistance = 15f;
+    private float defaultNoteSpeed = 2f;
     int notePassed = 0;
 
     new AudioSource audio;
@@ -136,6 +136,9 @@ public class GameManager : MonoBehaviour
         {
             if (hand.IsLeft)
             {
+                // Leap position
+                //var t = hand.Fingers[1].TipPosition.ToVector3();
+                //Debug.Log(t.x + "  " + t.y + " " + t.z);
                 transform.position = hand.PalmPosition.ToVector3() +
                                      hand.PalmNormal.ToVector3() *
                                     (transform.localScale.y * .5f + .02f);
@@ -171,7 +174,18 @@ public class GameManager : MonoBehaviour
 
     void CreateNextNote()
     {
-        Vector3 spawnPos = new Vector3(Random.Range(-3f, 3f), Random.Range(-1.5f, 1.5f), defaultNoteSpawnDistance);
+        int osuWidth = 512 / 2;
+        int osuHeight = 384 / 2;
+
+        float worldWidth = 0.2f;
+        float worldHeight = 0.1f;
+
+
+        Vector3 spawnPos = new Vector3(
+            worldWidth * (currentNote.x - osuWidth) / osuWidth,
+            -worldHeight * (currentNote.y - osuHeight) / osuHeight,
+            defaultNoteSpawnDistance
+            );
         GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
         noteObjectList.Add(noteObject);
     }

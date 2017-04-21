@@ -51,6 +51,9 @@ public class Note
     public float time;
     public float speed;
     public SimpleColor color;
+
+    public int x;
+    public int y;
 }
 
 #region Basic Defination

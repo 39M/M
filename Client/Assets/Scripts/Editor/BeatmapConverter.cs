@@ -96,6 +96,8 @@ public class BeatmapConverter
                         // Circle
                         beatmap.noteList.Add(new Note
                         {
+                            x = int.Parse(noteInfo[0]),
+                            y = int.Parse(noteInfo[1]),
                             time = float.Parse(noteInfo[2]) / 1000,
                             // 其他 Circle 相关的处理
                         });
@@ -105,6 +107,8 @@ public class BeatmapConverter
                         // Slider
                         beatmap.noteList.Add(new Note
                         {
+                            x = int.Parse(noteInfo[0]),
+                            y = int.Parse(noteInfo[1]),
                             time = float.Parse(noteInfo[2]) / 1000,
                             // 其他 Slider 相关的处理
                         });
@@ -114,12 +118,16 @@ public class BeatmapConverter
                         // Spinner
                         beatmap.noteList.Add(new Note
                         {
+                            x = int.Parse(noteInfo[0]),
+                            y = int.Parse(noteInfo[1]),
                             time = float.Parse(noteInfo[2]) / 1000,
                             // 其他 Spinner 相关的处理
                         });
 
                         beatmap.noteList.Add(new Note
                         {
+                            x = int.Parse(noteInfo[0]),
+                            y = int.Parse(noteInfo[1]),
                             time = float.Parse(noteInfo[5]) / 1000,
                             // 其他 Spinner 相关的处理
                         });
