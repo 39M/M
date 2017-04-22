@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     float missDistance = -0.15f;
     float noteDestroyDistance;
 
+    float noteSpawnPosXMultiplier;
+    float noteSpawnPosYMultiplier;
+
     new AudioSource audio;
     AudioClip hitSoundClip;
 
@@ -32,7 +35,15 @@ public class GameManager : MonoBehaviour
         noteObjectList = new List<NoteObject>();
         audio = GetComponent<AudioSource>();
 
-        noteDestroyDistance = Camera.main.transform.position.z;
+        Camera camera = Camera.main;
+
+        //noteSpawnPosYMultiplier = Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad) * defaultNoteSpawnDistance;
+        //noteSpawnPosXMultiplier = noteSpawnPosYMultiplier * camera.aspect;
+
+        noteDestroyDistance = camera.transform.position.z;
+
+        noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance / 3;
+        noteSpawnPosYMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance / 3;
     }
 
     void Start()
@@ -99,18 +110,29 @@ public class GameManager : MonoBehaviour
         float worldWidth = 0.15f;
         float worldHeight = 0.075f;
 
+        Vector3 targetPos = new Vector3
+        {
+            x = worldWidth * (currentNote.x - osuWidth) / osuWidth,
+            y = -worldHeight * (currentNote.y - osuHeight) / osuHeight,
+            z = 0,
+        };
 
-        Vector3 spawnPos = new Vector3(
-            worldWidth * (currentNote.x - osuWidth) / osuWidth,
-            -worldHeight * (currentNote.y - osuHeight) / osuHeight,
-            defaultNoteSpawnDistance
-            );
+        Vector3 spawnPos = new Vector3
+        {
+            x = targetPos.x * noteSpawnPosXMultiplier,
+            y = targetPos.y * noteSpawnPosYMultiplier,
+            z = defaultNoteSpawnDistance,
+        };
+
         GameObject noteGameObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+
         noteObjectList.Add(new NoteObject
         {
             gameObject = noteGameObject,
             collider = noteGameObject.GetComponent<Collider>(),
             note = currentNote,
+            spawnPosition = spawnPos,
+            targetPosition = targetPos,
         });
     }
 
@@ -123,10 +145,18 @@ public class GameManager : MonoBehaviour
             GameObject noteGameObject = noteObject.gameObject;
             Note note = noteObject.note;
 
-            float posOffset = (note.time - audio.time) * defaultNoteSpeed;
-            Vector3 updatedPos = noteGameObject.transform.position;
-            updatedPos.z = posOffset;
-            noteGameObject.transform.position = updatedPos;
+            if (noteGameObject.transform.position.z > 0)
+            {
+                float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
+                float t = (audio.time - (note.time - totalTime)) / totalTime;
+                noteGameObject.transform.position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
+            }
+            else
+            {
+                Vector3 targetPos = noteObject.targetPosition;
+                targetPos.z = (note.time - audio.time) * defaultNoteSpeed;
+                noteGameObject.transform.position = targetPos;
+            }
 
             if (noteGameObject.transform.position.z < noteDestroyDistance)
             {
