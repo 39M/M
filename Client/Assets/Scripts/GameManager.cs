@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     float defaultNoteSpeed = 1.5f;
 
     float checkStartDistance = 0.25f;
-    float missDistance = -0.2f;
+    float missDistance = -0.15f;
     float noteDestroyDistance;
 
     new AudioSource audio;
@@ -37,78 +37,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        #region Json.Net Test
-        string jsonString = new Music
-        {
-            title = "title",
-            artist = "artist",
-            audioFilename = "audio.mp3",
-            previewTime = 0f,
-            soundEffectFilename = "sound.wav",
-            bannerFilename = "banner.png",
-            beatmapList = new List<Beatmap>
-            {
-                new Beatmap
-                {
-                    creator = "creator",
-                    version = "1.0",
-                    difficulty = 1,
-                    difficultyName = "Easy",
-                    difficultyDisplayColor = new SimpleColor(Color.green),
-                    noteList = new List<Note>
-                    {
-                        new Note
-                        {
-                            type = NoteType.Hit,
-                            time = 0f,
-                            speed = 1f,
-                            color = new SimpleColor(Color.grey)
-                        },
-                        new Note
-                        {
-                            type = NoteType.Slide,
-                            time = 1f,
-                            speed = 2f,
-                            color = new SimpleColor(Color.white)
-                        }
-                    }
-                },
-                new Beatmap
-                {
-
-                    creator = "creator",
-                    version = "1.0",
-                    difficulty = 5,
-                    difficultyName = "Normal",
-                    difficultyDisplayColor = new SimpleColor(Color.blue),
-                    noteList = new List<Note>
-                    {
-                        new Note
-                        {
-                            type = NoteType.Hit,
-                            time = 0f,
-                            speed = 1f,
-                            color = new SimpleColor(Color.grey)
-                        },
-                        new Note
-                        {
-                            type = NoteType.Slide,
-                            time = 1f,
-                            speed = 2f,
-                            color = new SimpleColor(Color.white)
-                        }
-                    }
-                }
-            }
-        }.ToJson();
-
-        Debug.Log(jsonString);
-
-        Music music = Music.FromJson(jsonString);
-
-        Debug.Log(JsonConvert.SerializeObject(music.beatmapList[1], Formatting.Indented));
-        #endregion
-
         // Init Leap
         provider = FindObjectOfType<LeapProvider>() as LeapProvider;
 
@@ -217,31 +145,55 @@ public class GameManager : MonoBehaviour
     {
         Frame frame = provider.CurrentFrame;
 
-        foreach (Hand hand in frame.Hands)
+        int i = 0;
+        while (i < noteObjectList.Count)
         {
-            foreach (Finger finger in hand.Fingers)
+            NoteObject noteObject = noteObjectList[i];
+            GameObject noteGameObject = noteObject.gameObject;
+
+            float posZ = noteGameObject.transform.position.z;
+            if (posZ > checkStartDistance)
             {
-                int i = 0;
-                while (i < noteObjectList.Count)
+                break;
+            }
+            if (posZ < missDistance)
+            {
+                i++;
+                continue;
+            }
+
+            Collider noteCollider = noteObject.collider;
+            bool hit = false;
+
+            foreach (Hand hand in frame.Hands)
+            {
+                foreach (Finger finger in hand.Fingers)
                 {
-                    NoteObject noteObject = noteObjectList[i];
-                    GameObject noteGameObject = noteObject.gameObject;
-                    Collider noteCollider = noteObject.collider;
                     Vector3 fingerTipPosition = finger.TipPosition.ToVector3();
 
                     if (noteCollider.bounds.Contains(fingerTipPosition))
                     {
-                        // Hit
-                        audio.PlayOneShot(hitSoundClip);
-
-                        Destroy(noteGameObject);
-                        noteObjectList.RemoveAt(i);
-                    }
-                    else
-                    {
-                        i++;
+                        hit = true;
+                        break;
                     }
                 }
+
+                if (hit)
+                {
+                    break;
+                }
+            }
+
+            if (hit)
+            {
+                audio.PlayOneShot(hitSoundClip);
+
+                Destroy(noteGameObject);
+                noteObjectList.RemoveAt(i);
+            }
+            else
+            {
+                i++;
             }
         }
     }
