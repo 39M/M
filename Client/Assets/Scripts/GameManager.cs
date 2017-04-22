@@ -16,19 +16,23 @@ public class GameManager : MonoBehaviour
     Note currentNote;
 
     public GameObject notePrefab;
-    List<GameObject> noteObjectList;
-    private float defaultNoteSpawnDistance = 15f;
-    private float defaultNoteSpeed = 2f;
-    int notePassed = 0;
+    List<NoteObject> noteObjectList;
+    float defaultNoteSpawnDistance = 15f;
+    float defaultNoteSpeed = 1.5f;
+
+    float checkStartDistance = 0.25f;
+    float missDistance = -0.2f;
+    float noteDestroyDistance;
 
     new AudioSource audio;
     AudioClip hitSoundClip;
 
     void Awake()
     {
-        noteObjectList = new List<GameObject>();
-
+        noteObjectList = new List<NoteObject>();
         audio = GetComponent<AudioSource>();
+
+        noteDestroyDistance = Camera.main.transform.position.z;
     }
 
     void Start()
@@ -131,20 +135,7 @@ public class GameManager : MonoBehaviour
 
         MoveNotes();
 
-        Frame frame = provider.CurrentFrame;
-        foreach (Hand hand in frame.Hands)
-        {
-            if (hand.IsLeft)
-            {
-                // Leap position
-                //var t = hand.Fingers[1].TipPosition.ToVector3();
-                //Debug.Log(t.x + "  " + t.y + " " + t.z);
-                transform.position = hand.PalmPosition.ToVector3() +
-                                     hand.PalmNormal.ToVector3() *
-                                    (transform.localScale.y * .5f + .02f);
-                transform.rotation = hand.Basis.rotation.ToQuaternion();
-            }
-        }
+        CheckHit();
     }
 
     void CreateNotes()
@@ -177,8 +168,8 @@ public class GameManager : MonoBehaviour
         int osuWidth = 512 / 2;
         int osuHeight = 384 / 2;
 
-        float worldWidth = 0.2f;
-        float worldHeight = 0.1f;
+        float worldWidth = 0.15f;
+        float worldHeight = 0.075f;
 
 
         Vector3 spawnPos = new Vector3(
@@ -186,35 +177,72 @@ public class GameManager : MonoBehaviour
             -worldHeight * (currentNote.y - osuHeight) / osuHeight,
             defaultNoteSpawnDistance
             );
-        GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
-        noteObjectList.Add(noteObject);
+        GameObject noteGameObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+        noteObjectList.Add(new NoteObject
+        {
+            gameObject = noteGameObject,
+            collider = noteGameObject.GetComponent<Collider>(),
+            note = currentNote,
+        });
     }
 
     void MoveNotes()
     {
-        for (int i = 0; i < noteObjectList.Count; i++)
+        int i = 0;
+        while (i < noteObjectList.Count)
         {
-            GameObject noteObject = noteObjectList[i];
-            Note note = noteList[i + notePassed];
+            NoteObject noteObject = noteObjectList[i];
+            GameObject noteGameObject = noteObject.gameObject;
+            Note note = noteObject.note;
 
             float posOffset = (note.time - audio.time) * defaultNoteSpeed;
-            Vector3 updatedPos = noteObject.transform.position;
+            Vector3 updatedPos = noteGameObject.transform.position;
             updatedPos.z = posOffset;
-            noteObject.transform.position = updatedPos;
+            noteGameObject.transform.position = updatedPos;
 
-            if (noteObject.transform.position.z < 0)
+            if (noteGameObject.transform.position.z < noteDestroyDistance)
             {
-                Destroy(noteObject);
-                noteObjectList[i] = null;
-
-                audio.PlayOneShot(hitSoundClip);
+                // Time to destroy
+                Destroy(noteGameObject);
+                noteObjectList.RemoveAt(i);
+            }
+            else
+            {
+                i++;
             }
         }
+    }
 
-        while (noteObjectList.Count > 0 && noteObjectList[0] == null)
+    void CheckHit()
+    {
+        Frame frame = provider.CurrentFrame;
+
+        foreach (Hand hand in frame.Hands)
         {
-            noteObjectList.RemoveAt(0);
-            notePassed++;
+            foreach (Finger finger in hand.Fingers)
+            {
+                int i = 0;
+                while (i < noteObjectList.Count)
+                {
+                    NoteObject noteObject = noteObjectList[i];
+                    GameObject noteGameObject = noteObject.gameObject;
+                    Collider noteCollider = noteObject.collider;
+                    Vector3 fingerTipPosition = finger.TipPosition.ToVector3();
+
+                    if (noteCollider.bounds.Contains(fingerTipPosition))
+                    {
+                        // Hit
+                        audio.PlayOneShot(hitSoundClip);
+
+                        Destroy(noteGameObject);
+                        noteObjectList.RemoveAt(i);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
         }
     }
 }
