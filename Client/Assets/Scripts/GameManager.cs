@@ -1,9 +1,7 @@
-﻿using System.Collections;
+﻿using Leap;
+using Leap.Unity;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
-using Leap;
-using Leap.Unity;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,8 +50,7 @@ public class GameManager : MonoBehaviour
         provider = FindObjectOfType<LeapProvider>() as LeapProvider;
 
         // Load beatmap
-        var beatmapAsset = Resources.Load<TextAsset>("Music/Sample");
-        music = Music.FromJson(beatmapAsset.text);
+        music = RuntimeData.selectedMusic;
         beatmap = music.beatmapList[0];
         noteList = beatmap.noteList;
         noteEnum = noteList.GetEnumerator();
@@ -61,11 +58,9 @@ public class GameManager : MonoBehaviour
         currentNote = noteEnum.Current;
 
         // Load audio
-        string audioPath = "Music/" + music.audioFilename;
-        audioPath = audioPath.Remove(audioPath.LastIndexOf('.'));
-        audio.clip = Resources.Load<AudioClip>(audioPath);
+        audio.clip = Utils.LoadAudio(music.audioFilename);
         audio.Play();
-        hitSoundClip = Resources.Load<AudioClip>("Music/HitSound");
+        hitSoundClip = Utils.LoadSoundEffect("HitSound.wav");
     }
 
     void Update()
