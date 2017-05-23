@@ -66,6 +66,7 @@ public class BeatmapConverter
                     else if (line.StartsWith("AudioFilename"))
                     {
                         music.audioFilename = value;
+                        music.bannerFilename = value;
                     }
                     else if (line.StartsWith("PreviewTime"))
                     {
@@ -83,6 +84,8 @@ public class BeatmapConverter
                     //{
                     //    beatmap.difficulty = int.Parse(value);
                     //}
+                    beatmap.difficultyDisplayColor = new SimpleColor(new Color(58, 183, 239));
+                    beatmap.difficultyName = "Normal";
                 }
                 else
                 {

@@ -4,14 +4,19 @@
   "audioFilename": "DJ Okawari - Canon.mp3",
   "previewTime": 97.833,
   "soundEffectFilename": null,
-  "bannerFilename": null,
+  "bannerFilename": "DJ Okawari - Canon.mp3",
   "beatmapList": [
     {
       "creator": "backstep",
       "version": "Spinboxer",
       "difficulty": 0,
-      "difficultyName": null,
-      "difficultyDisplayColor": null,
+      "difficultyName": "Normal",
+      "difficultyDisplayColor": {
+        "r": 58.0,
+        "g": 183.0,
+        "b": 239.0,
+        "a": 1.0
+      },
       "noteList": [
         {
           "type": 0,

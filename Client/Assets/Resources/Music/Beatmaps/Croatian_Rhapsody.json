@@ -4,14 +4,19 @@
   "audioFilename": "Croatian_Rhapsody.mp3",
   "previewTime": 62.483,
   "soundEffectFilename": null,
-  "bannerFilename": null,
+  "bannerFilename": "Croatian_Rhapsody.mp3",
   "beatmapList": [
     {
       "creator": "haha5957",
       "version": "Allegro Vivace",
       "difficulty": 0,
-      "difficultyName": null,
-      "difficultyDisplayColor": null,
+      "difficultyName": "Normal",
+      "difficultyDisplayColor": {
+        "r": 58.0,
+        "g": 183.0,
+        "b": 239.0,
+        "a": 1.0
+      },
       "noteList": [
         {
           "type": 0,
