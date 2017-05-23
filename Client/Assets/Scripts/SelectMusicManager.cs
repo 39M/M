@@ -18,47 +18,53 @@ public class SelectMusicManager : MonoBehaviour
 
     public static SelectMusicManager instance { get; private set; }
 
+    new AudioSource audio;
+    Coroutine playMusicCoroutine;
+
     public List<Music> musicList { get; private set; }
     public GameObject musicUIGroup;
     public GameObject musicUIItemPrefab;
     List<MusicUIItem> musicUIItemList;
     int focusIndex;
 
-    float itemHeight;
     float itemWidth;
     float itemSpacing;
 
-    float itemMaxHeight;
-    float itemMaxWidth;
+    float itemMaxScale;
+
+    float swipeTransitionDuration;
 
     float minSwipeSpeed;
 
-    bool lockControl;
     bool lockLeftControl;
     bool lockRightControl;
+    float positiveUnlockDelay;
+    float negativeUnlockDelay;
     Coroutine unlockLeftCoroutine;
     Coroutine unlockRightCoroutine;
 
-
     void Awake()
     {
+        audio = GetComponent<AudioSource>();
+
         musicList = new List<Music>();
 
         instance = this;
 
-        //itemHeight = 0f;
         itemWidth = 240f;
         itemSpacing = 100f;
-        itemMaxHeight = 0f;
-        itemMaxWidth = 0f;
+        itemMaxScale = 1.5f;
+        swipeTransitionDuration = 0.5f;
 
         minSwipeSpeed = 1f;
 
         focusIndex = 1;
 
-        lockControl = false;
         lockRightControl = false;
         lockLeftControl = false;
+
+        positiveUnlockDelay = 0.15f;
+        negativeUnlockDelay = 0.5f;
     }
 
     void Start()
@@ -75,11 +81,6 @@ public class SelectMusicManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            SwipeTo(Direction.Left);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            SwipeTo(Direction.Right);
-
         CheckSwipe();
     }
 
@@ -111,13 +112,14 @@ public class SelectMusicManager : MonoBehaviour
             };
         }
 
+        // Set group position
         musicUIGroup.transform.localPosition = new Vector3
         {
             x = -focusIndex * (itemWidth + itemSpacing),
         };
 
-        MusicUIItem focusItem = musicUIItemList[focusIndex];
-        focusItem.transform.localScale = Vector3.one * 1.5f;
+        // Set default focut item
+        SetDefaultFocusItem(musicUIItemList[focusIndex]);
     }
 
     MusicUIItem CreateMusicUIItem(Music music)
@@ -134,65 +136,38 @@ public class SelectMusicManager : MonoBehaviour
 
         item.transform = item.gameObject.transform;
         item.albumImage = item.transform.Find("AlbumImage").GetComponent<UnityEngine.UI.Image>();
-        item.titleLabel = item.transform.Find("TitleLabel").GetComponent<Text>();
+        item.textGroup = item.transform.Find("TextGroup").GetComponent<CanvasGroup>();
+        item.titleLabel = item.transform.Find("TextGroup/TitleLabel").GetComponent<Text>();
+        item.artistLabel = item.transform.Find("TextGroup/ArtistLabel").GetComponent<Text>();
+        item.difficultyLabel = item.transform.Find("TextGroup/DifficultyLabel").GetComponent<Text>();
 
-        //item.albumImage.sprite = null;
+        item.albumImage.sprite = Utils.LoadBanner(music.bannerFilename);
         item.titleLabel.text = music.title;
+        item.artistLabel.text = music.artist;
+        item.difficultyLabel.text = music.beatmapList[0].difficultyName;
+        item.difficultyLabel.color = music.beatmapList[0].difficultyDisplayColor.ToColor();
 
         return item;
     }
 
-    void SwipeTo(Direction direction)
+    void SetDefaultFocusItem(MusicUIItem item)
     {
-        int directionCode = 0;
+        item.transform.localScale = Vector3.one * itemMaxScale;
 
-        switch (direction)
-        {
-            case Direction.Left:
-                directionCode = -1;
-                break;
-            case Direction.Right:
-                directionCode = 1;
-                break;
-        }
+        item.textGroup.alpha = 1;
 
-        int nextFocus = focusIndex + directionCode;
-
-        if (nextFocus < 0 || nextFocus >= musicUIItemList.Count)
-        {
-            return;
-        }
-
-        //lockControl = true;
-        lockLeftControl = true;
-        lockRightControl = true;
-        if (unlockLeftCoroutine != null)
-        {
-            StopCoroutine(unlockLeftCoroutine);
-        }
-        if (unlockRightCoroutine != null)
-        {
-            StopCoroutine(unlockRightCoroutine);
-        }
-        unlockLeftCoroutine = StartCoroutine(UnlockControlAfter(0.15f, direction));
-        unlockRightCoroutine = StartCoroutine(UnlockControlAfter(0.5f, direction == Direction.Left ? Direction.Right : Direction.Left));
-
-        float updatedGroupPosition = -nextFocus * (itemWidth + itemSpacing);
-        musicUIGroup.transform.DOLocalMoveX(updatedGroupPosition, 0.5f, true).SetEase(Ease.OutQuad).Play();
-        //.OnComplete(() =>
-        //{
-        //    lockControl = false;
-        //});
-
-        musicUIItemList[focusIndex].transform.DOScale(1, 0.5f).SetEase(Ease.OutQuad).Play();
-        musicUIItemList[nextFocus].transform.DOScale(1.5f, 0.5f).SetEase(Ease.OutQuad).Play();
-
-        focusIndex += directionCode;
+        playMusicCoroutine = StartCoroutine(LoadAsyncAndPlay(item.music));
     }
 
     void CheckSwipe()
     {
-        //if (lockControl)
+        // Keyboard
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            SwipeTo(Direction.Left);
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            SwipeTo(Direction.Right);
+
+        // Leap Motion
         if (lockLeftControl && lockRightControl)
         {
             return;
@@ -201,7 +176,6 @@ public class SelectMusicManager : MonoBehaviour
         Frame frame = provider.CurrentFrame;
         foreach (Hand hand in frame.Hands)
         {
-            //Debug.Log(hand.PalmVelocity.x);
             if (hand.PalmVelocity.x > minSwipeSpeed && !lockLeftControl)
             {
                 SwipeTo(Direction.Left);
@@ -215,10 +189,38 @@ public class SelectMusicManager : MonoBehaviour
         }
     }
 
+    void SwipeTo(Direction direction)
+    {
+        int nextFocus = focusIndex + ((direction == Direction.Left) ? -1 : 1);
+
+        if (nextFocus < 0 || nextFocus >= musicUIItemList.Count)
+        {
+            return;
+        }
+
+        // Set lock
+        lockLeftControl = true;
+        lockRightControl = true;
+        // Stop running coroutine
+        if (unlockLeftCoroutine != null)
+        {
+            StopCoroutine(unlockLeftCoroutine);
+        }
+        if (unlockRightCoroutine != null)
+        {
+            StopCoroutine(unlockRightCoroutine);
+        }
+        // Start unlock coroutine
+        unlockLeftCoroutine = StartCoroutine(UnlockControlAfter(positiveUnlockDelay, direction));
+        unlockRightCoroutine = StartCoroutine(UnlockControlAfter(negativeUnlockDelay, direction == Direction.Left ? Direction.Right : Direction.Left));
+
+        SwitchMusic(nextFocus);
+    }
+
     IEnumerator UnlockControlAfter(float time, Direction direction)
     {
         yield return new WaitForSeconds(time);
-        //lockControl = false;
+
         switch (direction)
         {
             case Direction.Left:
@@ -228,6 +230,44 @@ public class SelectMusicManager : MonoBehaviour
                 lockRightControl = false;
                 break;
         }
+    }
+
+    void SwitchMusic(int nextFocus)
+    {
+        MusicUIItem currentItem = musicUIItemList[focusIndex];
+        MusicUIItem nextItem = musicUIItemList[nextFocus];
+
+        float updatedGroupPosition = -nextFocus * (itemWidth + itemSpacing);
+        musicUIGroup.transform.DOPause();
+        musicUIGroup.transform.DOLocalMoveX(updatedGroupPosition, swipeTransitionDuration, true).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+        {
+            Music nextMusic = nextItem.music;
+            if (playMusicCoroutine != null)
+            {
+                StopCoroutine(playMusicCoroutine);
+            }
+            playMusicCoroutine = StartCoroutine(LoadAsyncAndPlay(nextMusic));
+        });
+
+        currentItem.transform.DOScale(1, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        nextItem.transform.DOScale(itemMaxScale, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+
+        currentItem.textGroup.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        nextItem.textGroup.DOFade(1, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+
+        audio.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+
+        focusIndex = nextFocus;
+    }
+
+    IEnumerator LoadAsyncAndPlay(Music music)
+    {
+        ResourceRequest request = Utils.LoadAudioAsync(music.audioFilename);
+        yield return request;
+        audio.clip = request.asset as AudioClip;
+        audio.time = music.previewTime;
+        audio.Play();
+        audio.DOFade(1, swipeTransitionDuration).SetEase(Ease.InQuad).Play();
     }
 
     void StartGame(Music music)
