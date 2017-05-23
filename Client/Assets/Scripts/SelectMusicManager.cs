@@ -21,6 +21,9 @@ public class SelectMusicManager : MonoBehaviour
     new AudioSource audio;
     Coroutine playMusicCoroutine;
 
+    public UnityEngine.UI.Image bannerBackground;
+    float backgroundAlpha;
+
     public List<Music> musicList { get; private set; }
     public GameObject musicUIGroup;
     public GameObject musicUIItemPrefab;
@@ -31,6 +34,7 @@ public class SelectMusicManager : MonoBehaviour
     float itemSpacing;
 
     float itemMaxScale;
+    float itemMinScale;
 
     float swipeTransitionDuration;
 
@@ -53,7 +57,8 @@ public class SelectMusicManager : MonoBehaviour
 
         itemWidth = 240f;
         itemSpacing = 100f;
-        itemMaxScale = 1.5f;
+        itemMaxScale = 1f;
+        itemMinScale = 0.7f;
         swipeTransitionDuration = 0.5f;
 
         minSwipeSpeed = 1f;
@@ -65,6 +70,8 @@ public class SelectMusicManager : MonoBehaviour
 
         positiveUnlockDelay = 0.15f;
         negativeUnlockDelay = 0.5f;
+
+        backgroundAlpha = bannerBackground.color.a;
     }
 
     void Start()
@@ -135,12 +142,13 @@ public class SelectMusicManager : MonoBehaviour
         };
 
         item.transform = item.gameObject.transform;
-        item.albumImage = item.transform.Find("AlbumImage").GetComponent<UnityEngine.UI.Image>();
+        item.albumImage = item.transform.Find("AlbumBackground/AlbumImage").GetComponent<UnityEngine.UI.Image>();
         item.textGroup = item.transform.Find("TextGroup").GetComponent<CanvasGroup>();
         item.titleLabel = item.transform.Find("TextGroup/TitleLabel").GetComponent<Text>();
         item.artistLabel = item.transform.Find("TextGroup/ArtistLabel").GetComponent<Text>();
         item.difficultyLabel = item.transform.Find("TextGroup/DifficultyLabel").GetComponent<Text>();
 
+        item.transform.localScale = Vector3.one * itemMinScale;
         item.albumImage.sprite = Utils.LoadBanner(music.bannerFilename);
         item.titleLabel.text = music.title;
         item.artistLabel.text = music.artist;
@@ -155,6 +163,8 @@ public class SelectMusicManager : MonoBehaviour
         item.transform.localScale = Vector3.one * itemMaxScale;
 
         item.textGroup.alpha = 1;
+
+        bannerBackground.sprite = item.albumImage.sprite;
 
         playMusicCoroutine = StartCoroutine(LoadAsyncAndPlay(item.music));
     }
@@ -201,6 +211,7 @@ public class SelectMusicManager : MonoBehaviour
         // Set lock
         lockLeftControl = true;
         lockRightControl = true;
+
         // Stop running coroutine
         if (unlockLeftCoroutine != null)
         {
@@ -210,6 +221,7 @@ public class SelectMusicManager : MonoBehaviour
         {
             StopCoroutine(unlockRightCoroutine);
         }
+
         // Start unlock coroutine
         unlockLeftCoroutine = StartCoroutine(UnlockControlAfter(positiveUnlockDelay, direction));
         unlockRightCoroutine = StartCoroutine(UnlockControlAfter(negativeUnlockDelay, direction == Direction.Left ? Direction.Right : Direction.Left));
@@ -247,15 +259,18 @@ public class SelectMusicManager : MonoBehaviour
                 StopCoroutine(playMusicCoroutine);
             }
             playMusicCoroutine = StartCoroutine(LoadAsyncAndPlay(nextMusic));
+            bannerBackground.sprite = nextItem.albumImage.sprite;
+            bannerBackground.DOFade(backgroundAlpha, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
         });
 
-        currentItem.transform.DOScale(1, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        currentItem.transform.DOScale(itemMinScale, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
         nextItem.transform.DOScale(itemMaxScale, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
 
         currentItem.textGroup.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
         nextItem.textGroup.DOFade(1, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
 
         audio.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        bannerBackground.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
 
         focusIndex = nextFocus;
     }
