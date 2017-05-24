@@ -12,4 +12,5 @@ public class MusicUIItem
     public Text difficultyLabel;
 
     public Music music;
+    public int beatmapIndex;
 }

@@ -10,11 +10,37 @@
       "creator": "backstep",
       "version": "Spinboxer",
       "difficulty": 0,
+      "difficultyName": "Easy",
+      "difficultyDisplayColor": {
+        "r": 191.0,
+        "g": 255.0,
+        "b": 160.0,
+        "a": 1.0
+      },
+      "noteList": []
+	},
+    {
+      "creator": "backstep",
+      "version": "Spinboxer",
+      "difficulty": 0,
       "difficultyName": "Normal",
       "difficultyDisplayColor": {
         "r": 58.0,
         "g": 183.0,
         "b": 239.0,
+        "a": 1.0
+      },
+      "noteList": []
+	},
+    {
+      "creator": "backstep",
+      "version": "Spinboxer",
+      "difficulty": 0,
+      "difficultyName": "Hard",
+      "difficultyDisplayColor": {
+        "r": 249.0,
+        "g": 90.0,
+        "b": 101.0,
         "a": 1.0
       },
       "noteList": [

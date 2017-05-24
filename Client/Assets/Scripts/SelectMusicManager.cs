@@ -24,6 +24,10 @@ public class SelectMusicManager : MonoBehaviour
     public UnityEngine.UI.Image bannerBackground;
     float backgroundAlpha;
 
+    Transform canvasTransform;
+    Vector3 canvasBasePosition;
+    Vector3 canvasVelocity;
+
     public List<Music> musicList { get; private set; }
     public GameObject musicUIGroup;
     public GameObject musicUIItemPrefab;
@@ -50,6 +54,8 @@ public class SelectMusicManager : MonoBehaviour
     void Awake()
     {
         audio = GetComponent<AudioSource>();
+        canvasTransform = GameObject.Find("Canvas").transform;
+        canvasBasePosition = canvasTransform.position;
 
         musicList = new List<Music>();
 
@@ -82,13 +88,15 @@ public class SelectMusicManager : MonoBehaviour
         // Load Music List
         LoadMusicList();
         InitMusicGroup();
-
-        //StartGame(musicList[0]);
     }
 
     void Update()
     {
         CheckSwipe();
+        CheckChangeDifficulty();
+        CheckGameStart();
+
+        MoveMusicGroup();
     }
 
     void LoadMusicList()
@@ -139,14 +147,15 @@ public class SelectMusicManager : MonoBehaviour
         {
             gameObject = itemGameObject,
             music = music,
+            beatmapIndex = 0,
         };
 
         item.transform = item.gameObject.transform;
         item.albumImage = item.transform.Find("AlbumBackground/AlbumImage").GetComponent<UnityEngine.UI.Image>();
         item.textGroup = item.transform.Find("TextGroup").GetComponent<CanvasGroup>();
-        item.titleLabel = item.transform.Find("TextGroup/TitleLabel").GetComponent<Text>();
-        item.artistLabel = item.transform.Find("TextGroup/ArtistLabel").GetComponent<Text>();
-        item.difficultyLabel = item.transform.Find("TextGroup/DifficultyLabel").GetComponent<Text>();
+        item.titleLabel = item.transform.Find("TextGroup/TitleBackground/TitleLabel").GetComponent<Text>();
+        item.artistLabel = item.transform.Find("TextGroup/ArtistBackground/ArtistLabel").GetComponent<Text>();
+        item.difficultyLabel = item.transform.Find("TextGroup/DifficultyBackground/DifficultyLabel").GetComponent<Text>();
 
         item.transform.localScale = Vector3.one * itemMinScale;
         item.albumImage.sprite = Utils.LoadBanner(music.bannerFilename);
@@ -201,6 +210,11 @@ public class SelectMusicManager : MonoBehaviour
 
     void SwipeTo(Direction direction)
     {
+        if (changingDifficulty || callingStartGame)
+        {
+            return;
+        }
+
         int nextFocus = focusIndex + ((direction == Direction.Left) ? -1 : 1);
 
         if (nextFocus < 0 || nextFocus >= musicUIItemList.Count)
@@ -285,11 +299,137 @@ public class SelectMusicManager : MonoBehaviour
         audio.DOFade(1, swipeTransitionDuration).SetEase(Ease.InQuad).Play();
     }
 
-    void StartGame(Music music)
+    void CheckChangeDifficulty()
     {
-        Debug.Assert(music != null);
+        int directionCode = 0;
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            directionCode = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            directionCode = -1;
+        }
+
+        if (directionCode != 0)
+        {
+            ChangeDifficulty(directionCode);
+        }
+    }
+
+    bool changingDifficulty = false;
+    public void ChangeDifficulty(int directionCode = 1)
+    {
+        if (callingStartGame)
+        {
+            return;
+        }
+
+        MusicUIItem item = musicUIItemList[focusIndex];
+
+        int beatmapCount = item.music.beatmapList.Count;
+
+        if (beatmapCount <= 1)
+        {
+            return;
+        }
+
+        item.beatmapIndex += directionCode;
+        if (item.beatmapIndex < 0)
+        {
+            item.beatmapIndex = beatmapCount - 1;
+        }
+        if (item.beatmapIndex >= beatmapCount)
+        {
+            item.beatmapIndex = 0;
+        }
+
+        Beatmap nextBeatmap = item.music.beatmapList[item.beatmapIndex];
+
+        changingDifficulty = true;
+        item.difficultyLabel.DOFade(0, 0.3f).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+        {
+            Color color = nextBeatmap.difficultyDisplayColor.ToColor();
+            color.a = 0;
+            item.difficultyLabel.color = color;
+            item.difficultyLabel.text = nextBeatmap.difficultyName;
+            item.difficultyLabel.DOFade(1, 0.3f).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+            {
+                changingDifficulty = false;
+            });
+        });
+    }
+
+    void CheckGameStart()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartGame();
+        }
+    }
+
+    bool calledStartGame = false;
+    public void StartGame()
+    {
+        Music music = musicList[focusIndex];
+        int beatmapIndex = musicUIItemList[focusIndex].beatmapIndex;
+
+        calledStartGame = true;
 
         RuntimeData.selectedMusic = music;
-        SceneManager.LoadScene("Game");
+        RuntimeData.selectedBeatmap = music.beatmapList[beatmapIndex];
+
+        Utils.FadeOut(() =>
+        {
+            SceneManager.LoadScene("Game");
+        });
+    }
+
+    bool callingStartGame = false;
+    public void ActiveGameStart()
+    {
+        callingStartGame = true;
+        transform.DOScale(0, 1).Play().OnComplete(() =>
+        {
+            StartGame();
+        });
+        musicUIItemList[focusIndex].transform.DOScale(1.2f, 2).SetEase(Ease.Linear).Play();
+    }
+
+    public void DeactiveGameStart()
+    {
+        if (calledStartGame)
+        {
+            return;
+        }
+        callingStartGame = false;
+
+        transform.DOPause();
+        transform.localScale = Vector3.one;
+        musicUIItemList[focusIndex].transform.DOPause();
+        musicUIItemList[focusIndex].transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad).Play();
+    }
+
+    void MoveMusicGroup()
+    {
+        if (provider.CurrentFrame.Hands.Count > 0)
+        {
+            Hand hand = provider.CurrentFrame.Hands[0];
+            Vector3 position = canvasBasePosition;
+            position.x = hand.PalmPosition.x / 10;
+            canvasTransform.position = Vector3.SmoothDamp(canvasTransform.position, position, ref canvasVelocity, 0.1f);
+        }
+        else
+        {
+            //canvasTransform.DOMove(canvasBasePosition, 0.3f).SetEase(Ease.OutQuad).Play();
+            canvasTransform.position = Vector3.SmoothDamp(canvasTransform.position, canvasBasePosition, ref canvasVelocity, 0.1f);
+        }
+    }
+
+    public void DebugLog()
+    {
+        Debug.LogWarning("Logged");
     }
 }
