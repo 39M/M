@@ -381,7 +381,7 @@ public class SelectMusicManager : MonoBehaviour
         RuntimeData.selectedMusic = music;
         RuntimeData.selectedBeatmap = music.beatmapList[beatmapIndex];
 
-        Utils.FadeOut(() =>
+        Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
         });
