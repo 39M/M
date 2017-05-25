@@ -1,4 +1,5 @@
-﻿using Leap;
+﻿using DG.Tweening;
+using Leap;
 using Leap.Unity;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,6 +86,22 @@ public class GameManager : MonoBehaviour
 
         MoveHandMarker();
         CheckHit();
+    }
+
+    public void SkipPreview()
+    {
+        if (noteList[0].time - audio.time > 4f)
+        {
+            audio.DOFade(0, 0.5f).Play().OnComplete(() =>
+            {
+                audio.time = noteList[0].time - 3f;
+                audio.DOFade(1, 0.5f).Play();
+            });
+            Utils.FadeOut(0.5f, () =>
+            {
+                Utils.FadeIn(0.5f);
+            });
+        }
     }
 
     void CreateNotes()
