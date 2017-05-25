@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     LeapProvider provider;
 
+    public GameObject leftHandMarker;
+    public GameObject rightHandMarker;
+
     Music music;
     Beatmap beatmap;
     List<Note> noteList;
@@ -16,14 +19,17 @@ public class GameManager : MonoBehaviour
     public GameObject notePrefab;
     List<NoteObject> noteObjectList;
     float defaultNoteSpawnDistance = 15f;
-    float defaultNoteSpeed = 1.5f;
+    float defaultNoteSpeed = 1f;
 
     float checkStartDistance = 0.25f;
     float missDistance = -0.15f;
     float noteDestroyDistance;
 
     float noteSpawnPosXMultiplier;
-    float noteSpawnPosYMultiplier;
+    //float noteSpawnPosYMultiplier;
+    float noteSpawnDispersion = 1.5f;
+
+    public GameObject particlePrefab;
 
     new AudioSource audio;
     AudioClip hitSoundClip;
@@ -40,8 +46,8 @@ public class GameManager : MonoBehaviour
 
         noteDestroyDistance = camera.transform.position.z;
 
-        noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance / 3;
-        noteSpawnPosYMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance / 3;
+        noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance * noteSpawnDispersion;
+        //noteSpawnPosYMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance * noteSpawnDispersion;
     }
 
     void Start()
@@ -51,7 +57,16 @@ public class GameManager : MonoBehaviour
 
         // Load beatmap
         music = RuntimeData.selectedMusic;
-        beatmap = music.beatmapList[0];
+        if (music == null)
+        {
+            var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Croatian_Rhapsody");
+            music = Music.FromJson(beatmapAsset.text);
+        }
+        beatmap = RuntimeData.selectedBeatmap;
+        if (beatmap == null)
+        {
+            beatmap = music.beatmapList[0];
+        }
         noteList = beatmap.noteList;
         noteEnum = noteList.GetEnumerator();
         noteEnum.MoveNext();
@@ -66,9 +81,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CreateNotes();
-
         MoveNotes();
 
+        MoveHandMarker();
         CheckHit();
     }
 
@@ -102,20 +117,25 @@ public class GameManager : MonoBehaviour
         int osuWidth = 512 / 2;
         int osuHeight = 384 / 2;
 
-        float worldWidth = 0.15f;
-        float worldHeight = 0.075f;
+        float worldWidth = 0.25f;
+        //float worldHeight = 0.03f;
 
         Vector3 targetPos = new Vector3
         {
             x = worldWidth * (currentNote.x - osuWidth) / osuWidth,
-            y = -worldHeight * (currentNote.y - osuHeight) / osuHeight,
+            //y = -worldHeight * (currentNote.y - osuHeight) / osuHeight,
+            y = 0,
             z = 0,
         };
+
+        float baseSpawnY = 6f;
+        float floatRangeY = 1.5f;
 
         Vector3 spawnPos = new Vector3
         {
             x = targetPos.x * noteSpawnPosXMultiplier,
-            y = targetPos.y * noteSpawnPosYMultiplier,
+            //y = targetPos.y * noteSpawnPosYMultiplier + 6,
+            y = baseSpawnY + floatRangeY * (currentNote.y - osuHeight) / osuHeight,
             z = defaultNoteSpawnDistance,
         };
 
@@ -140,18 +160,26 @@ public class GameManager : MonoBehaviour
             GameObject noteGameObject = noteObject.gameObject;
             Note note = noteObject.note;
 
-            if (noteGameObject.transform.position.z > 0)
-            {
-                float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
-                float t = (audio.time - (note.time - totalTime)) / totalTime;
-                noteGameObject.transform.position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
-            }
-            else
-            {
-                Vector3 targetPos = noteObject.targetPosition;
-                targetPos.z = (note.time - audio.time) * defaultNoteSpeed;
-                noteGameObject.transform.position = targetPos;
-            }
+            float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
+            float t = (audio.time - (note.time - totalTime)) / totalTime;
+            noteGameObject.transform.position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
+
+            #region Legacy move logic
+            //if (noteGameObject.transform.position.z > 0)
+            //{
+            //    float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
+            //    float t = (audio.time - (note.time - totalTime)) / totalTime;
+            //    noteGameObject.transform.position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
+            //}
+            //else
+            //{
+            //    float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
+            //    float t = (audio.time - (note.time - totalTime)) / totalTime;
+            //    Vector3 position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
+            //    position.x = noteObject.targetPosition.x;
+            //    noteGameObject.transform.position = position;
+            //}
+            #endregion
 
             if (noteGameObject.transform.position.z < noteDestroyDistance)
             {
@@ -162,6 +190,31 @@ public class GameManager : MonoBehaviour
             else
             {
                 i++;
+            }
+        }
+    }
+
+    void MoveHandMarker()
+    {
+        Frame frame = provider.CurrentFrame;
+
+        foreach (Hand hand in frame.Hands)
+        {
+            var position = Vector3.zero;
+            position.x = Mathf.Clamp(hand.PalmPosition.x, -0.3f, 0.3f);
+
+            var rotation = Quaternion.identity;
+            rotation.z = hand.Rotation.z;
+
+            if (hand.IsLeft)
+            {
+                leftHandMarker.transform.position = position;
+                leftHandMarker.transform.rotation = rotation;
+            }
+            else if (hand.IsRight)
+            {
+                rightHandMarker.transform.position = position;
+                rightHandMarker.transform.rotation = rotation;
             }
         }
     }
@@ -190,28 +243,37 @@ public class GameManager : MonoBehaviour
             Collider noteCollider = noteObject.collider;
             bool hit = false;
 
-            foreach (Hand hand in frame.Hands)
+            #region Legacy check hit logic
+            //foreach (Hand hand in frame.Hands)
+            //{
+            //    foreach (Finger finger in hand.Fingers)
+            //    {
+            //        Vector3 fingerTipPosition = finger.TipPosition.ToVector3();
+
+            //        if (noteCollider.bounds.Contains(fingerTipPosition))
+            //        {
+            //            hit = true;
+            //            break;
+            //        }
+            //    }
+
+            //    if (hit)
+            //    {
+            //        break;
+            //    }
+            //}
+            #endregion
+
+            if (noteCollider.bounds.Contains(leftHandMarker.transform.position)
+                || noteCollider.bounds.Contains(rightHandMarker.transform.position))
             {
-                foreach (Finger finger in hand.Fingers)
-                {
-                    Vector3 fingerTipPosition = finger.TipPosition.ToVector3();
-
-                    if (noteCollider.bounds.Contains(fingerTipPosition))
-                    {
-                        hit = true;
-                        break;
-                    }
-                }
-
-                if (hit)
-                {
-                    break;
-                }
+                hit = true;
             }
 
             if (hit)
             {
                 audio.PlayOneShot(hitSoundClip);
+                CreateHitParticle(noteGameObject.transform.position);
 
                 Destroy(noteGameObject);
                 noteObjectList.RemoveAt(i);
@@ -221,5 +283,12 @@ public class GameManager : MonoBehaviour
                 i++;
             }
         }
+    }
+
+    void CreateHitParticle(Vector3 position)
+    {
+        var p = Instantiate(particlePrefab);
+        p.transform.position = position;
+        Destroy(p, p.GetComponent<ParticleSystem>().main.duration);
     }
 }
