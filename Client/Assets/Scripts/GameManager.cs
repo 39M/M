@@ -389,7 +389,7 @@ public class GameManager : MonoBehaviour
 
         Utils.FadeOut(1, () =>
         {
-            SceneManager.LoadScene("SelectMusic");
+            SceneManager.LoadScene("Grade");
         }, audioFadeDelay + audioFadeTime - 1);
     }
 }
