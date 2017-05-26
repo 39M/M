@@ -32,7 +32,7 @@ public static class Utils
         return Resources.Load<Sprite>(path);
     }
 
-    public static void FadeOut(float duration, TweenCallback onComplete = null)
+    public static void FadeOut(float duration, TweenCallback onComplete = null, float delay = 0)
     {
         GameObject uiCanvas = GameObject.Find("UICanvas");
         Debug.Assert(uiCanvas != null);
@@ -44,20 +44,20 @@ public static class Utils
             {
                 childTransform.gameObject.SetActive(true);
                 Image image = childTransform.Find("Mask").GetComponent<Image>();
-                image.DOFade(1, duration).SetEase(Ease.InOutCubic).Play().OnComplete(onComplete);
+                image.DOFade(1, duration).SetEase(Ease.InOutCubic).SetDelay(delay).Play().OnComplete(onComplete);
                 break;
             }
         }
     }
 
-    public static void FadeIn(float duration, TweenCallback onComplete = null)
+    public static void FadeIn(float duration, TweenCallback onComplete = null, float delay = 0)
     {
         GameObject uiCanvas = GameObject.Find("UICanvas");
         Debug.Assert(uiCanvas != null);
 
         Transform fadePanelTransform = uiCanvas.transform.Find("FadePanel");
         Image image = fadePanelTransform.Find("Mask").GetComponent<Image>();
-        image.DOFade(0, duration).SetEase(Ease.InOutCubic).Play().OnComplete(() =>
+        image.DOFade(0, duration).SetEase(Ease.InOutCubic).SetDelay(delay).Play().OnComplete(() =>
         {
             fadePanelTransform.gameObject.SetActive(false);
             if (onComplete != null)

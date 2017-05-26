@@ -3,6 +3,7 @@ using Leap;
 using Leap.Unity;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
     const float hitScorePercentage = 0.8f;
     float displayScore = 0;
 
+    bool gameEnd = false;
+
     void Awake()
     {
         noteObjectList = new List<NoteObject>();
@@ -81,6 +84,8 @@ public class GameManager : MonoBehaviour
             beatmap = music.beatmapList[0];
         }
         noteList = beatmap.noteList;
+        //int remainNote = 20;
+        //noteList.RemoveRange(remainNote, noteList.Count - remainNote);
         noteEnum = noteList.GetEnumerator();
         noteEnum.MoveNext();
         currentNote = noteEnum.Current;
@@ -93,11 +98,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        CreateNotes();
-        MoveNotes();
-
         MoveHandMarker();
-        CheckHit();
+
+        if (!gameEnd)
+        {
+            CreateNotes();
+            MoveNotes();
+
+            CheckHit();
+        }
     }
 
     public void SkipPreview()
@@ -334,6 +343,11 @@ public class GameManager : MonoBehaviour
 
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
+
+        if (noteObjectList.Count <= 0)
+        {
+            EndGame();
+        }
     }
 
     void MissedNote(int i)
@@ -343,6 +357,11 @@ public class GameManager : MonoBehaviour
         GameObject noteGameObject = noteObjectList[i].gameObject;
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
+
+        if (noteObjectList.Count <= 0)
+        {
+            EndGame();
+        }
     }
 
     void CreateHitParticle(Vector3 position)
@@ -350,5 +369,23 @@ public class GameManager : MonoBehaviour
         var p = Instantiate(particlePrefab);
         p.transform.position = position;
         Destroy(p, p.GetComponent<ParticleSystem>().main.duration);
+    }
+
+    void EndGame()
+    {
+        gameEnd = true;
+
+        RuntimeData.hitCount = hitCount;
+        RuntimeData.maxCombo = maxCombo;
+        RuntimeData.score = Mathf.RoundToInt(score);
+
+        float audioFadeDelay = 2;
+        float audioFadeTime = 5;
+        audio.DOFade(0, audioFadeTime).SetDelay(audioFadeDelay).Play();
+
+        Utils.FadeOut(1, () =>
+        {
+            SceneManager.LoadScene("SelectMusic");
+        }, audioFadeDelay + audioFadeTime - 1);
     }
 }
