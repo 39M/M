@@ -35,6 +35,18 @@ public class GameManager : MonoBehaviour
     new AudioSource audio;
     AudioClip hitSoundClip;
 
+    [SerializeField]
+    int hitCount = 0;
+    [SerializeField]
+    int comboCount = 0;
+    [SerializeField]
+    int maxCombo = 0;
+    [SerializeField]
+    float score = 0;
+    const float maxScore = 1000000;
+    const float hitScorePercentage = 0.8f;
+    float displayScore = 0;
+
     void Awake()
     {
         noteObjectList = new List<NoteObject>();
@@ -200,9 +212,7 @@ public class GameManager : MonoBehaviour
 
             if (noteGameObject.transform.position.z < noteDestroyDistance)
             {
-                // Time to destroy
-                Destroy(noteGameObject);
-                noteObjectList.RemoveAt(i);
+                MissedNote(i);
             }
             else
             {
@@ -289,17 +299,50 @@ public class GameManager : MonoBehaviour
 
             if (hit)
             {
-                audio.PlayOneShot(hitSoundClip);
-                CreateHitParticle(noteGameObject.transform.position);
-
-                Destroy(noteGameObject);
-                noteObjectList.RemoveAt(i);
+                HitNote(i);
             }
             else
             {
                 i++;
             }
         }
+    }
+
+    void HitNote(int i)
+    {
+        hitCount++;
+        // Percentage x Single Hit Score
+        score += (maxScore * hitScorePercentage) * 1 / noteList.Count;
+
+        comboCount++;
+        if (comboCount > maxCombo)
+        {
+            maxCombo = comboCount;
+        }
+        // Percentage x Combo Count x Single Combo Score
+        score += (maxScore * (1 - hitScorePercentage)) * comboCount / (noteList.Count * (noteList.Count + 1) / 2);
+
+        // Snap to max score
+        if (comboCount == noteList.Count)
+        {
+            score = maxScore;
+        }
+
+        GameObject noteGameObject = noteObjectList[i].gameObject;
+        audio.PlayOneShot(hitSoundClip);
+        CreateHitParticle(noteGameObject.transform.position);
+
+        Destroy(noteGameObject);
+        noteObjectList.RemoveAt(i);
+    }
+
+    void MissedNote(int i)
+    {
+        comboCount = 0;
+
+        GameObject noteGameObject = noteObjectList[i].gameObject;
+        Destroy(noteGameObject);
+        noteObjectList.RemoveAt(i);
     }
 
     void CreateHitParticle(Vector3 position)
