@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int hitCount = 0;
     [SerializeField]
+    int missCount = 0;
+    [SerializeField]
     int comboCount = 0;
     [SerializeField]
     int maxCombo = 0;
@@ -352,6 +354,7 @@ public class GameManager : MonoBehaviour
 
     void MissedNote(int i)
     {
+        missCount++;
         comboCount = 0;
 
         GameObject noteGameObject = noteObjectList[i].gameObject;
@@ -376,6 +379,7 @@ public class GameManager : MonoBehaviour
         gameEnd = true;
 
         RuntimeData.hitCount = hitCount;
+        RuntimeData.missCount = missCount;
         RuntimeData.maxCombo = maxCombo;
         RuntimeData.score = Mathf.RoundToInt(score);
 
