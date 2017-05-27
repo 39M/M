@@ -3,6 +3,7 @@ using Leap;
 using Leap.Unity;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -24,17 +25,19 @@ public class GameManager : MonoBehaviour
     float defaultNoteSpeed = 1f;
 
     float checkStartDistance = 0.25f;
-    float missDistance = -0.15f;
+    float missDistance = 0f;
     float noteDestroyDistance;
 
     float noteSpawnPosXMultiplier;
     //float noteSpawnPosYMultiplier;
     float noteSpawnDispersion = 1.5f;
 
-    public GameObject particlePrefab;
+    public GameObject hitParticlePrefab;
+    public GameObject missParticlePrefab;
 
     new AudioSource audio;
     AudioClip hitSoundClip;
+    new Camera camera;
 
     [SerializeField]
     int hitCount = 0;
@@ -50,21 +53,33 @@ public class GameManager : MonoBehaviour
     const float hitScorePercentage = 0.8f;
     float displayScore = 0;
 
+    public Slider hpBar;
+    public Text judgementLabel;
+    public Tweener judgementLabelTweener;
+    public UnityEngine.UI.Image judgementLine;
+
     bool gameEnd = false;
+
+    Transform canvasTransform;
+    Vector3 canvasBaseRotation;
+    Vector3 canvasVelocity;
 
     void Awake()
     {
         noteObjectList = new List<NoteObject>();
         audio = GetComponent<AudioSource>();
+        canvasTransform = GameObject.Find("Canvas").transform;
+        canvasBaseRotation = canvasTransform.eulerAngles;
+        //Debug.Log(canvasTransform.forward);
 
-        Camera camera = Camera.main;
+        camera = Camera.main;
 
         //noteSpawnPosYMultiplier = Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad) * defaultNoteSpawnDistance;
         //noteSpawnPosXMultiplier = noteSpawnPosYMultiplier * camera.aspect;
 
-        noteDestroyDistance = camera.transform.position.z;
+        noteDestroyDistance = missDistance;
 
-        noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance * noteSpawnDispersion;
+        noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -camera.transform.position.z * noteSpawnDispersion;
         //noteSpawnPosYMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance * noteSpawnDispersion;
     }
 
@@ -86,7 +101,7 @@ public class GameManager : MonoBehaviour
             beatmap = music.beatmapList[0];
         }
         noteList = beatmap.noteList;
-        //int remainNote = 20;
+        //int remainNote = 100;
         //noteList.RemoveRange(remainNote, noteList.Count - remainNote);
         noteEnum = noteList.GetEnumerator();
         noteEnum.MoveNext();
@@ -96,10 +111,15 @@ public class GameManager : MonoBehaviour
         audio.clip = Utils.LoadAudio(music.audioFilename);
         audio.Play();
         hitSoundClip = Utils.LoadSoundEffect("HitSound.wav");
+
+        // Init UI
+        hpBar.value = 1;
+        judgementLabel.text = "";
     }
 
     void Update()
     {
+        MoveCameraWithHands();
         MoveHandMarker();
 
         if (!gameEnd)
@@ -247,12 +267,12 @@ public class GameManager : MonoBehaviour
             if (hand.IsLeft)
             {
                 leftHandMarker.transform.position = position;
-                leftHandMarker.transform.rotation = rotation;
+                //leftHandMarker.transform.rotation = rotation;
             }
             else if (hand.IsRight)
             {
                 rightHandMarker.transform.position = position;
-                rightHandMarker.transform.rotation = rotation;
+                //rightHandMarker.transform.rotation = rotation;
             }
         }
     }
@@ -341,7 +361,8 @@ public class GameManager : MonoBehaviour
 
         GameObject noteGameObject = noteObjectList[i].gameObject;
         audio.PlayOneShot(hitSoundClip);
-        CreateHitParticle(noteGameObject.transform.position);
+        CreateHitParticle(noteGameObject.transform.position, hitParticlePrefab);
+        ShowHitJudgement();
 
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
@@ -357,7 +378,10 @@ public class GameManager : MonoBehaviour
         missCount++;
         comboCount = 0;
 
+        ShowMissJudgement();
+
         GameObject noteGameObject = noteObjectList[i].gameObject;
+        CreateHitParticle(noteGameObject.transform.position, missParticlePrefab);
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
 
@@ -367,11 +391,63 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CreateHitParticle(Vector3 position)
+    void CreateHitParticle(Vector3 position, GameObject prefab)
     {
-        var p = Instantiate(particlePrefab);
+        if (prefab == null)
+        {
+            return;
+        }
+        var p = Instantiate(prefab);
         p.transform.position = position;
         Destroy(p, p.GetComponent<ParticleSystem>().main.duration);
+    }
+
+    float judgementScaleTweenDuration = 0.025f;
+    float judgementScaleTweenDelay = 0.05f;
+    void ShowHitJudgement()
+    {
+        ShowJudgement(GameConst.HIT_NAME, 250, GameConst.HIT_COLOR, GameConst.JUDGEMENT_LINE_HIT_COLOR);
+        ScreenShake(0.01f);
+    }
+
+    void ShowMissJudgement()
+    {
+        ShowJudgement(GameConst.MISS_NAME, 200, GameConst.MISS_COLOR, GameConst.JUDGEMENT_LINE_MISS_COLOR);
+    }
+
+    void ShowJudgement(string name, int fontSize, Color color, Color judgementLineColor)
+    {
+        judgementLabel.text = name;
+        judgementLabel.fontSize = fontSize;
+
+        if (judgementLabelTweener != null && judgementLabelTweener.IsPlaying())
+        {
+            DOTween.Kill(judgementLabel);
+        }
+
+        judgementLabel.DOColor(color, judgementScaleTweenDuration);
+        judgementLabel.transform.DOScale(1.3f, judgementScaleTweenDuration).OnComplete(() =>
+        {
+            judgementLabel.transform.DOScale(1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
+            judgementLabel.DOFade(0.1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay).OnComplete(() =>
+            {
+                judgementLabelTweener = judgementLabel.DOFade(0, 2).SetDelay(0.5f);
+            });
+        });
+
+        judgementLine.DOColor(judgementLineColor, judgementScaleTweenDuration).OnComplete(() =>
+        {
+            judgementLine.DOColor(GameConst.JUDGEMENT_LINE_DEFAULT_COLOR, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
+        });
+    }
+
+    void ScreenShake(float range)
+    {
+        Vector3 shakeDirection = new Vector3(Random.Range(-range, range), Random.Range(-range, range));
+        camera.transform.DOMove(camera.transform.position + shakeDirection, judgementScaleTweenDuration).OnComplete(() =>
+        {
+            camera.transform.DOMove(camera.transform.position - shakeDirection, judgementScaleTweenDuration);
+        });
     }
 
     void EndGame()
@@ -391,5 +467,23 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Grade");
         }, audioFadeDelay + audioFadeTime - 1);
+    }
+
+    void MoveCameraWithHands()
+    {
+        if (provider.CurrentFrame.Hands.Count >= 2)
+        {
+            Hand hand1 = provider.CurrentFrame.Hands[0];
+            Hand hand2 = provider.CurrentFrame.Hands[1];
+
+            Vector3 mid = Vector3.Lerp(hand1.PalmPosition.ToVector3(), hand2.PalmPosition.ToVector3(), 0.5f) / 3;
+            mid.y = 0;
+            mid += new Vector3(0, 0.1f, 0);
+
+            camera.transform.LookAt(mid);
+            Vector3 rotation = camera.transform.eulerAngles;
+            rotation.z = mid.x * 125;
+            camera.transform.eulerAngles = rotation;
+        }
     }
 }
