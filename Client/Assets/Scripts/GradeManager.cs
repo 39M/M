@@ -20,6 +20,7 @@ public class GradeManager : MonoBehaviour
     Vector3 canvasVelocity;
 
     Music music;
+    Beatmap beatmap;
 
     public Text perfectCountLabel;
     public Text missCountLabel;
@@ -30,6 +31,9 @@ public class GradeManager : MonoBehaviour
     float missCount = 0;
     float maxCombo = 0;
     float score = 0;
+
+    public LensFlare lensFlare;
+    public GameObject lensFlareReference;
 
     void Awake()
     {
@@ -49,6 +53,11 @@ public class GradeManager : MonoBehaviour
             var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Croatian_Rhapsody");
             music = Music.FromJson(beatmapAsset.text);
         }
+        beatmap = RuntimeData.selectedBeatmap;
+        if (beatmap == null)
+        {
+            beatmap = music.beatmapList[0];
+        }
         bannerBackground.sprite = Utils.LoadBanner(music.bannerFilename);
 
         perfectCountLabel.text = "0";
@@ -57,6 +66,10 @@ public class GradeManager : MonoBehaviour
         scoreCountLabel.text = "0";
 
         SetRank();
+
+        lensFlare.transform.localPosition = Vector3.zero;
+        lensFlare.transform.DOLocalMove(new Vector3(-290f, 140f), 2).SetDelay(0.5f);
+        lensFlare.brightness = 0;
     }
 
     void SetRank()
@@ -95,6 +108,7 @@ public class GradeManager : MonoBehaviour
     {
         MoveMusicGroup();
         PlayScoreAnimation();
+        PlayLensFlareAnimation();
     }
 
     bool scoreAnimationDone = false;
@@ -103,7 +117,7 @@ public class GradeManager : MonoBehaviour
         if (!scoreAnimationDone)
         {
             hitCount = Mathf.SmoothStep(hitCount, RuntimeData.hitCount, 0.1f);
-            perfectCountLabel.text = (Mathf.RoundToInt(hitCount)).ToString();
+            perfectCountLabel.text = string.Format("{0}/{1}", Mathf.RoundToInt(hitCount), beatmap.noteList.Count);
 
             missCount = Mathf.SmoothStep(missCount, RuntimeData.missCount, 0.1f);
             missCountLabel.text = (Mathf.RoundToInt(missCount)).ToString();
@@ -111,17 +125,36 @@ public class GradeManager : MonoBehaviour
             maxCombo = Mathf.SmoothStep(maxCombo, RuntimeData.maxCombo, 0.1f);
             comboCountLabel.text = (Mathf.RoundToInt(maxCombo)).ToString();
 
-            score += Mathf.Clamp((RuntimeData.score - score), 2f, float.MaxValue) * 3 * Time.deltaTime;
-            scoreCountLabel.text = (Mathf.RoundToInt(score)).ToString();
+            score += Mathf.Clamp((RuntimeData.score - score), 2f, float.MaxValue) * 5 * Time.deltaTime;
+            score = Mathf.Clamp(score, 0, RuntimeData.score);
+            scoreCountLabel.text = (score / 10000).ToString().Substring(0, 5) + "%";
 
             if ((Mathf.RoundToInt(hitCount) == RuntimeData.hitCount) &&
                 (Mathf.RoundToInt(missCount) == RuntimeData.missCount) &&
                 (Mathf.RoundToInt(maxCombo) == RuntimeData.maxCombo) &&
-                (Mathf.RoundToInt(score) == RuntimeData.score))
+                (Mathf.RoundToInt(score) / 100 == RuntimeData.score / 100))
             {
                 scoreAnimationDone = true;
-                rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(1).Play();
+                rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f).Play();
             }
+        }
+    }
+
+    bool lensFlareAnimationDone = false;
+    void PlayLensFlareAnimation()
+    {
+        if (!lensFlareAnimationDone)
+        {
+            lensFlare.brightness = Mathf.SmoothStep(lensFlare.brightness, 0.5f, 0.1f);
+            if (lensFlare.brightness > 0.499)
+            {
+                lensFlareAnimationDone = true;
+            }
+        }
+
+        if (lensFlareAnimationDone)
+        {
+            lensFlare.brightness = lensFlareReference.transform.position.x;
         }
     }
 
@@ -131,7 +164,7 @@ public class GradeManager : MonoBehaviour
         {
             Hand hand = provider.CurrentFrame.Hands[0];
             Vector3 position = canvasBasePosition;
-            position.x = hand.PalmPosition.x / 10;
+            position.x = hand.PalmPosition.x / 7.5f;
             canvasTransform.position = Vector3.SmoothDamp(canvasTransform.position, position, ref canvasVelocity, 0.1f);
         }
         else
