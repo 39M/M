@@ -6,6 +6,8 @@ public static class GameConst
     public const string AUDIO_PATH = "Music/Audio/";
     public const string SOUND_EFFECT_PATH = "Music/SoundEffect/";
     public const string BANNER_PATH = "Music/Banner/";
+    public const string DEFAULT_SOUND_EFFECT_FILENAME = "HitSound.wav";
+    
 
     public const string HIT_NAME = "Hit";
     public const string MISS_NAME = "Miss";

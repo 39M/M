@@ -118,12 +118,13 @@ public class CustomMusicManager : MonoBehaviour
             }
 
             item.clip = NAudioPlayer.FromMp3Data(loader.bytes);
+            item.clip.name = fileName;
         }
     }
 
     public void StartGame(AudioClip clip)
     {
-        RuntimeData.customMusic = true;
+        RuntimeData.useCustomMusic = true;
         RuntimeData.selectedClip = clip;
 
         Utils.FadeOut(1, () =>

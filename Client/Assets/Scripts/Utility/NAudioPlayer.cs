@@ -16,7 +16,7 @@ public static class NAudioPlayer
         // Convert to WAV data
         WAV wav = new WAV(AudioMemStream(waveStream).ToArray());
         //Debug.Log(wav);
-        AudioClip audioClip = AudioClip.Create("testSound", wav.SampleCount, 1, wav.Frequency, false);
+        AudioClip audioClip = AudioClip.Create("CustomClip", wav.SampleCount, 1, wav.Frequency, false);
         audioClip.SetData(wav.LeftChannel, 0);
         // Return the clip
         return audioClip;

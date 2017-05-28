@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject notePrefab;
     List<NoteObject> noteObjectList;
+
     float defaultNoteSpawnDistance = 15f;
     float defaultNoteSpeed = 1f;
+    float noteSpawnAdvanceTime;
 
     float checkStartDistance = 0.25f;
     float missDistance = 0f;
@@ -37,6 +39,10 @@ public class GameManager : MonoBehaviour
 
     new AudioSource audio;
     AudioClip hitSoundClip;
+
+    BeatDetection beatDetector;
+    AudioSource detectionAudio;
+
     new Camera camera;
 
     [SerializeField]
@@ -60,19 +66,24 @@ public class GameManager : MonoBehaviour
 
     bool gameEnd = false;
 
-    Transform canvasTransform;
-    Vector3 canvasBaseRotation;
-    Vector3 canvasVelocity;
-
     void Awake()
     {
         noteObjectList = new List<NoteObject>();
-        audio = GetComponent<AudioSource>();
-        canvasTransform = GameObject.Find("Canvas").transform;
-        canvasBaseRotation = canvasTransform.eulerAngles;
-        //Debug.Log(canvasTransform.forward);
 
         camera = Camera.main;
+
+        audio = GetComponent<AudioSource>();
+
+        Transform beatDetectorObject = transform.GetChild(0);
+        if (RuntimeData.useCustomMusic)
+        {
+            beatDetector = beatDetectorObject.GetComponent<BeatDetection>();
+            detectionAudio = beatDetectorObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            beatDetectorObject.gameObject.SetActive(false);
+        }
 
         //noteSpawnPosYMultiplier = Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad) * defaultNoteSpawnDistance;
         //noteSpawnPosXMultiplier = noteSpawnPosYMultiplier * camera.aspect;
@@ -81,6 +92,8 @@ public class GameManager : MonoBehaviour
 
         noteSpawnPosXMultiplier = defaultNoteSpawnDistance / -camera.transform.position.z * noteSpawnDispersion;
         //noteSpawnPosYMultiplier = defaultNoteSpawnDistance / -noteDestroyDistance * noteSpawnDispersion;
+
+        noteSpawnAdvanceTime = defaultNoteSpawnDistance / defaultNoteSpeed;
     }
 
     void Start()
@@ -88,6 +101,23 @@ public class GameManager : MonoBehaviour
         // Init Leap
         provider = FindObjectOfType<LeapProvider>() as LeapProvider;
 
+        // Init Music
+        if (RuntimeData.useCustomMusic)
+        {
+            InitWithCustomMusic();
+        }
+        else
+        {
+            InitWithBuildInBeatmap();
+        }
+
+        // Init UI
+        hpBar.value = 1;
+        judgementLabel.text = "";
+    }
+
+    void InitWithBuildInBeatmap()
+    {
         // Load beatmap
         music = RuntimeData.selectedMusic;
         if (music == null)
@@ -107,14 +137,94 @@ public class GameManager : MonoBehaviour
         noteEnum.MoveNext();
         currentNote = noteEnum.Current;
 
-        // Load audio
+        // Load and play audio
         audio.clip = Utils.LoadAudio(music.audioFilename);
-        audio.Play();
-        hitSoundClip = Utils.LoadSoundEffect("HitSound.wav");
+        if (currentNote.time < noteSpawnAdvanceTime / 2)
+        {
+            audio.PlayDelayed(2f);
+        }
+        else
+        {
+            audio.Play();
+        }
 
-        // Init UI
-        hpBar.value = 1;
-        judgementLabel.text = "";
+        if (music.soundEffectFilename != null && music.soundEffectFilename.Length > 0)
+        {
+            hitSoundClip = Utils.LoadSoundEffect(music.soundEffectFilename);
+        }
+        else
+        {
+            hitSoundClip = Utils.LoadSoundEffect(GameConst.DEFAULT_SOUND_EFFECT_FILENAME);
+        }
+    }
+
+    void InitWithCustomMusic()
+    {
+        // Set audio and play
+        Debug.Log(RuntimeData.selectedClip + RuntimeData.selectedClip.name);
+        audio.clip = RuntimeData.selectedClip;
+        hitSoundClip = Utils.LoadSoundEffect(GameConst.DEFAULT_SOUND_EFFECT_FILENAME);
+
+        beatDetector.CallBackFunction = OnBeat;
+        detectionAudio.clip = RuntimeData.selectedClip;
+        detectionAudio.pitch = 7.5f;
+        detectionAudio.Play();
+
+        StartCoroutine(Utils.WaitAndAction(noteSpawnAdvanceTime / detectionAudio.pitch, () =>
+        {
+            detectionAudio.pitch = 1;
+            audio.Play();
+        }));
+    }
+
+    void OnBeat(BeatDetection.EventInfo eventInfo)
+    {
+        CreateOneNote(GetRandomNote());
+
+        //switch (eventInfo.messageInfo)
+        //{
+        //    case BeatDetection.EventType.Energy:
+        //        break;
+        //    case BeatDetection.EventType.HitHat:
+        //        break;
+        //    case BeatDetection.EventType.Kick:
+        //        break;
+        //    case BeatDetection.EventType.Snare:
+        //        break;
+        //}
+    }
+
+    int osuMaxX = 512;
+    int osuMaxY = 384;
+    Note lastRandomNote;
+    Note GetRandomNote()
+    {
+        int posX;
+        int posY;
+
+        if (lastRandomNote == null)
+        {
+            posX = Random.Range(0, osuMaxX);
+            posY = Random.Range(0, osuMaxY);
+        }
+        else
+        {
+            float deltaTime = detectionAudio.time - lastRandomNote.time;
+            deltaTime = Mathf.Clamp01(deltaTime);
+            int rangeX = (int)(deltaTime * 512);
+            int rangeY = (int)(deltaTime * 384);
+            posX = lastRandomNote.x + Random.Range(Mathf.Clamp(-rangeX, -lastRandomNote.x, 0), Mathf.Clamp(rangeX, 0, osuMaxX - lastRandomNote.x));
+            posY = lastRandomNote.y + Random.Range(Mathf.Clamp(-rangeY, -lastRandomNote.y, 0), Mathf.Clamp(rangeY, 0, osuMaxX - lastRandomNote.y));
+        }
+
+        Note note = new Note
+        {
+            time = detectionAudio.time,
+            x = posX,
+            y = posY,
+        };
+        lastRandomNote = note;
+        return note;
     }
 
     void Update()
@@ -124,15 +234,37 @@ public class GameManager : MonoBehaviour
 
         if (!gameEnd)
         {
-            CreateNotes();
-            MoveNotes();
-
-            CheckHit();
+            if (RuntimeData.useCustomMusic)
+            {
+                CustomModeUpdate();
+            }
+            else
+            {
+                BuildInModeUpdate();
+            }
         }
+    }
+
+    void BuildInModeUpdate()
+    {
+        CreateNotes();
+        MoveNotes();
+        CheckHit();
+    }
+
+    void CustomModeUpdate()
+    {
+        MoveNotes();
+        CheckHit();
     }
 
     public void SkipPreview()
     {
+        if (RuntimeData.useCustomMusic)
+        {
+            return;
+        }
+
         if (noteList[0].time - audio.time > 4f)
         {
             audio.DOFade(0, 0.5f).Play().OnComplete(() =>
@@ -152,7 +284,7 @@ public class GameManager : MonoBehaviour
         // 同时可能有多个 Note, 所以用 while
         while ((currentNote != null) && TimesToCreate(currentNote))
         {
-            CreateNextNote();
+            CreateOneNote(currentNote);
 
             if (noteEnum.MoveNext())
             {
@@ -168,34 +300,30 @@ public class GameManager : MonoBehaviour
 
     bool TimesToCreate(Note note)
     {
-        float timeAdvance = defaultNoteSpawnDistance / defaultNoteSpeed;
-        return (currentNote.time - timeAdvance < audio.time);
+        return (currentNote.time - noteSpawnAdvanceTime < audio.time);
     }
 
-    void CreateNextNote()
+    int osuWidth = 512 / 2;
+    int osuHeight = 384 / 2;
+    float worldWidth = 0.25f;
+    //float worldHeight = 0.03f;
+    float baseSpawnY = 6f;
+    float floatRangeY = 1.5f;
+    void CreateOneNote(Note note)
     {
-        int osuWidth = 512 / 2;
-        int osuHeight = 384 / 2;
-
-        float worldWidth = 0.25f;
-        //float worldHeight = 0.03f;
-
         Vector3 targetPos = new Vector3
         {
-            x = worldWidth * (currentNote.x - osuWidth) / osuWidth,
+            x = worldWidth * (note.x - osuWidth) / osuWidth,
             //y = -worldHeight * (currentNote.y - osuHeight) / osuHeight,
             y = 0,
             z = 0,
         };
 
-        float baseSpawnY = 6f;
-        float floatRangeY = 1.5f;
-
         Vector3 spawnPos = new Vector3
         {
             x = targetPos.x * noteSpawnPosXMultiplier,
             //y = targetPos.y * noteSpawnPosYMultiplier + 6,
-            y = baseSpawnY + floatRangeY * (currentNote.y - osuHeight) / osuHeight,
+            y = baseSpawnY + floatRangeY * (note.y - osuHeight) / osuHeight,
             z = defaultNoteSpawnDistance,
         };
 
@@ -205,7 +333,7 @@ public class GameManager : MonoBehaviour
         {
             gameObject = noteGameObject,
             collider = noteGameObject.GetComponent<Collider>(),
-            note = currentNote,
+            note = note,
             spawnPosition = spawnPos,
             targetPosition = targetPos,
         });
@@ -220,8 +348,7 @@ public class GameManager : MonoBehaviour
             GameObject noteGameObject = noteObject.gameObject;
             Note note = noteObject.note;
 
-            float totalTime = defaultNoteSpawnDistance / defaultNoteSpeed;
-            float t = (audio.time - (note.time - totalTime)) / totalTime;
+            float t = (audio.time - (note.time - noteSpawnAdvanceTime)) / noteSpawnAdvanceTime;
             noteGameObject.transform.position = Vector3.LerpUnclamped(noteObject.spawnPosition, noteObject.targetPosition, t);
 
             #region Legacy move logic
@@ -342,6 +469,31 @@ public class GameManager : MonoBehaviour
     void HitNote(int i)
     {
         hitCount++;
+        AddHitScore();
+
+        GameObject noteGameObject = noteObjectList[i].gameObject;
+        audio.PlayOneShot(hitSoundClip);
+        CreateHitParticle(noteGameObject.transform.position, hitParticlePrefab);
+        ShowHitJudgement();
+
+        Destroy(noteGameObject);
+        noteObjectList.RemoveAt(i);
+
+        if (noteObjectList.Count <= 0)
+        {
+            EndGame();
+        }
+    }
+
+    void AddHitScore()
+    {
+        if (RuntimeData.useCustomMusic)
+        {
+            // DO Something
+            score += 100 + (comboCount - 1) * 10;
+            return;
+        }
+
         // Percentage x Single Hit Score
         score += (maxScore * hitScorePercentage) * 1 / noteList.Count;
 
@@ -357,19 +509,6 @@ public class GameManager : MonoBehaviour
         if (comboCount == noteList.Count)
         {
             score = maxScore;
-        }
-
-        GameObject noteGameObject = noteObjectList[i].gameObject;
-        audio.PlayOneShot(hitSoundClip);
-        CreateHitParticle(noteGameObject.transform.position, hitParticlePrefab);
-        ShowHitJudgement();
-
-        Destroy(noteGameObject);
-        noteObjectList.RemoveAt(i);
-
-        if (noteObjectList.Count <= 0)
-        {
-            EndGame();
         }
     }
 
@@ -431,7 +570,7 @@ public class GameManager : MonoBehaviour
             judgementLabel.transform.DOScale(1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
             judgementLabel.DOFade(0.1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay).OnComplete(() =>
             {
-                judgementLabelTweener = judgementLabel.DOFade(0, 2).SetDelay(0.5f);
+                judgementLabelTweener = judgementLabel.DOFade(0, 1).SetDelay(0.5f);
             });
         });
 

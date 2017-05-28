@@ -69,7 +69,7 @@ public class SelectMusicManager : MonoBehaviour
 
         minSwipeSpeed = 1f;
 
-        focusIndex = 1;
+        focusIndex = 0;
 
         lockRightControl = false;
         lockLeftControl = false;
@@ -378,6 +378,7 @@ public class SelectMusicManager : MonoBehaviour
 
         calledStartGame = true;
 
+        RuntimeData.useCustomMusic = false;
         RuntimeData.selectedMusic = music;
         RuntimeData.selectedBeatmap = music.beatmapList[beatmapIndex];
 

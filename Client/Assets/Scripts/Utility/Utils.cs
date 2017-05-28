@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,5 +67,11 @@ public static class Utils
                 onComplete();
             }
         });
+    }
+
+    public static IEnumerator WaitAndAction(float time, Action action)
+    {
+        yield return new WaitForSeconds(time);
+        action();
     }
 }
