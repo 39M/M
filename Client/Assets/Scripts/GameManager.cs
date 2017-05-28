@@ -8,43 +8,50 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Leap
     LeapProvider provider;
 
+    // Hand
     public GameObject leftHandMarker;
     public GameObject rightHandMarker;
 
+    // Basic Component
+    new Camera camera;
+    new AudioSource audio;
+    BeatDetection beatDetector;
+    AudioSource detectionAudio;
+    AudioClip hitSoundClip;
+
+    // Beatmap
     Music music;
     Beatmap beatmap;
     List<Note> noteList;
     List<Note>.Enumerator noteEnum;
     Note currentNote;
 
+    // Note objects
     public GameObject notePrefab;
     List<NoteObject> noteObjectList;
 
+    // Note spawn and move
     float defaultNoteSpawnDistance = 15f;
     float defaultNoteSpeed = 1f;
     float noteSpawnAdvanceTime;
-
-    float checkStartDistance = 0.25f;
-    float missDistance = 0f;
-    float noteDestroyDistance;
 
     float noteSpawnPosXMultiplier;
     //float noteSpawnPosYMultiplier;
     float noteSpawnDispersion = 1.5f;
 
+    // Check hit/miss
+    float checkStartDistance = 0.25f;
+    float missDistance = 0f;
+    float noteDestroyDistance;
+
+    // Effect
     public GameObject hitParticlePrefab;
     public GameObject missParticlePrefab;
 
-    new AudioSource audio;
-    AudioClip hitSoundClip;
-
-    BeatDetection beatDetector;
-    AudioSource detectionAudio;
-
-    new Camera camera;
-
+    // Score
     [SerializeField]
     int hitCount = 0;
     [SerializeField]
@@ -52,18 +59,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int comboCount = 0;
     [SerializeField]
-    int maxCombo = 0;
-    [SerializeField]
     int comboBonus = 0;
-    const float maxScore = 1000000;
+    [SerializeField]
+    int maxCombo = 0;
     const float hitScorePercentage = 0.8f;
-    float displayScore = 0;
 
+    // UI
     public Slider hpBar;
     public Text judgementLabel;
     public Tweener judgementLabelTweener;
     public UnityEngine.UI.Image judgementLine;
 
+    // Game control
     bool gameEnd = false;
 
     void Awake()
@@ -177,56 +184,6 @@ public class GameManager : MonoBehaviour
         }));
     }
 
-    void OnBeat(BeatDetection.EventInfo eventInfo)
-    {
-        CreateOneNote(GetRandomNote());
-
-        //switch (eventInfo.messageInfo)
-        //{
-        //    case BeatDetection.EventType.Energy:
-        //        break;
-        //    case BeatDetection.EventType.HitHat:
-        //        break;
-        //    case BeatDetection.EventType.Kick:
-        //        break;
-        //    case BeatDetection.EventType.Snare:
-        //        break;
-        //}
-    }
-
-    int osuMaxX = 512;
-    int osuMaxY = 384;
-    Note lastRandomNote;
-    Note GetRandomNote()
-    {
-        int posX;
-        int posY;
-
-        if (lastRandomNote == null)
-        {
-            posX = Random.Range(0, osuMaxX);
-            posY = Random.Range(0, osuMaxY);
-        }
-        else
-        {
-            float deltaTime = detectionAudio.time - lastRandomNote.time;
-            deltaTime = Mathf.Clamp01(deltaTime);
-            int rangeX = (int)(deltaTime * 512);
-            int rangeY = (int)(deltaTime * 384);
-            posX = lastRandomNote.x + Random.Range(Mathf.Max(-rangeX, -lastRandomNote.x), Mathf.Min(rangeX, osuMaxX - lastRandomNote.x));
-            posY = lastRandomNote.y + Random.Range(Mathf.Max(-rangeY, -lastRandomNote.y), Mathf.Min(rangeY, osuMaxX - lastRandomNote.y));
-        }
-
-        Note note = new Note
-        {
-            time = detectionAudio.time,
-            x = posX,
-            y = posY,
-        };
-        lastRandomNote = note;
-        return note;
-    }
-
     void Update()
     {
         MoveCameraWithHands();
@@ -242,41 +199,15 @@ public class GameManager : MonoBehaviour
             {
                 BuildInModeUpdate();
             }
+
+            MoveNotes();
+            CheckHit();
         }
     }
 
     void BuildInModeUpdate()
     {
         CreateNotes();
-        MoveNotes();
-        CheckHit();
-    }
-
-    void CustomModeUpdate()
-    {
-        MoveNotes();
-        CheckHit();
-    }
-
-    public void SkipPreview()
-    {
-        if (RuntimeData.useCustomMusic)
-        {
-            return;
-        }
-
-        if (noteList[0].time - audio.time > 4f)
-        {
-            audio.DOFade(0, 0.5f).OnComplete(() =>
-            {
-                audio.time = noteList[0].time - 3f;
-                audio.DOFade(1, 0.5f);
-            });
-            Utils.FadeOut(0.5f, () =>
-            {
-                Utils.FadeIn(0.5f);
-            });
-        }
     }
 
     void CreateNotes()
@@ -303,18 +234,69 @@ public class GameManager : MonoBehaviour
         return (currentNote.time - noteSpawnAdvanceTime < audio.time);
     }
 
-    int osuWidth = 512 / 2;
-    int osuHeight = 384 / 2;
-    float worldWidth = 0.25f;
-    //float worldHeight = 0.03f;
-    float baseSpawnY = 6f;
-    float floatRangeY = 1.5f;
+    void CustomModeUpdate()
+    {
+
+    }
+
+    void OnBeat(BeatDetection.EventInfo eventInfo)
+    {
+        CreateOneNote(GetRandomNote());
+
+        //switch (eventInfo.messageInfo)
+        //{
+        //    case BeatDetection.EventType.Energy:
+        //        break;
+        //    case BeatDetection.EventType.HitHat:
+        //        break;
+        //    case BeatDetection.EventType.Kick:
+        //        break;
+        //    case BeatDetection.EventType.Snare:
+        //        break;
+        //}
+    }
+
+    Note lastRandomNote;
+    Note GetRandomNote()
+    {
+        int posX;
+        int posY;
+
+        if (lastRandomNote == null)
+        {
+            posX = Random.Range(0, GameConst.noteMaxX);
+            posY = Random.Range(0, GameConst.noteMaxY);
+        }
+        else
+        {
+            float deltaTime = detectionAudio.time - lastRandomNote.time;
+            deltaTime = Mathf.Clamp01(deltaTime);
+            int rangeX = (int)(deltaTime * 512);
+            int rangeY = (int)(deltaTime * 384);
+            posX = lastRandomNote.x + Random.Range(Mathf.Max(-rangeX, -lastRandomNote.x), Mathf.Min(rangeX, GameConst.noteMaxX - lastRandomNote.x));
+            posY = lastRandomNote.y + Random.Range(Mathf.Max(-rangeY, -lastRandomNote.y), Mathf.Min(rangeY, GameConst.noteMaxY - lastRandomNote.y));
+        }
+
+        Note note = new Note
+        {
+            time = detectionAudio.time,
+            x = posX,
+            y = posY,
+        };
+        lastRandomNote = note;
+        return note;
+    }
+
+    const float worldWidth = 0.25f;
+    //const float worldHeight = 0.03f;
+    const float baseSpawnY = 6f;
+    const float floatRangeY = 1.5f;
     void CreateOneNote(Note note)
     {
         Vector3 targetPos = new Vector3
         {
-            x = worldWidth * (note.x - osuWidth) / osuWidth,
-            //y = -worldHeight * (currentNote.y - osuHeight) / osuHeight,
+            x = worldWidth * (note.x - GameConst.noteHalfX) / GameConst.noteHalfX,
+            //y = -worldHeight * (currentNote.y - GameConst.noteHalfY) / GameConst.noteHalfY,
             y = 0,
             z = 0,
         };
@@ -323,7 +305,7 @@ public class GameManager : MonoBehaviour
         {
             x = targetPos.x * noteSpawnPosXMultiplier,
             //y = targetPos.y * noteSpawnPosYMultiplier + 6,
-            y = baseSpawnY + floatRangeY * (note.y - osuHeight) / osuHeight,
+            y = baseSpawnY + floatRangeY * (note.y - GameConst.noteHalfY) / GameConst.noteHalfY,
             z = defaultNoteSpawnDistance,
         };
 
@@ -375,31 +357,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 i++;
-            }
-        }
-    }
-
-    void MoveHandMarker()
-    {
-        Frame frame = provider.CurrentFrame;
-
-        foreach (Hand hand in frame.Hands)
-        {
-            var position = Vector3.zero;
-            position.x = Mathf.Clamp(hand.PalmPosition.x, -0.3f, 0.3f);
-
-            var rotation = Quaternion.identity;
-            rotation.z = hand.Rotation.z;
-
-            if (hand.IsLeft)
-            {
-                leftHandMarker.transform.position = position;
-                //leftHandMarker.transform.rotation = rotation;
-            }
-            else if (hand.IsRight)
-            {
-                rightHandMarker.transform.position = position;
-                //rightHandMarker.transform.rotation = rotation;
             }
         }
     }
@@ -519,8 +476,6 @@ public class GameManager : MonoBehaviour
         Destroy(p, p.GetComponent<ParticleSystem>().main.duration);
     }
 
-    float judgementScaleTweenDuration = 0.025f;
-    float judgementScaleTweenDelay = 0.05f;
     void ShowHitJudgement()
     {
         ShowJudgement(GameConst.HIT_NAME, 250, GameConst.HIT_COLOR, GameConst.JUDGEMENT_LINE_HIT_COLOR);
@@ -532,6 +487,8 @@ public class GameManager : MonoBehaviour
         ShowJudgement(GameConst.MISS_NAME, 200, GameConst.MISS_COLOR, GameConst.JUDGEMENT_LINE_MISS_COLOR);
     }
 
+    float judgementScaleTweenDuration = 0.025f;
+    float judgementScaleTweenDelay = 0.05f;
     void ShowJudgement(string name, int fontSize, Color color, Color judgementLineColor)
     {
         judgementLabel.text = name;
@@ -590,8 +547,33 @@ public class GameManager : MonoBehaviour
     {
         int totalNoteCount = hitCount + missCount;
         float hitScore = (float)hitCount / (totalNoteCount) * hitScorePercentage;
-        float comboScore = (float)comboBonus / (totalNoteCount * (totalNoteCount - 1) / 2) * (1-hitScorePercentage);
+        float comboScore = (float)comboBonus / (totalNoteCount * (totalNoteCount - 1) / 2) * (1 - hitScorePercentage);
         return hitScore + comboScore;
+    }
+
+    void MoveHandMarker()
+    {
+        Frame frame = provider.CurrentFrame;
+
+        foreach (Hand hand in frame.Hands)
+        {
+            var position = Vector3.zero;
+            position.x = Mathf.Clamp(hand.PalmPosition.x, -0.3f, 0.3f);
+
+            var rotation = Quaternion.identity;
+            rotation.z = hand.Rotation.z;
+
+            if (hand.IsLeft)
+            {
+                leftHandMarker.transform.position = position;
+                //leftHandMarker.transform.rotation = rotation;
+            }
+            else if (hand.IsRight)
+            {
+                rightHandMarker.transform.position = position;
+                //rightHandMarker.transform.rotation = rotation;
+            }
+        }
     }
 
     void MoveCameraWithHands()
@@ -609,6 +591,27 @@ public class GameManager : MonoBehaviour
             Vector3 rotation = camera.transform.eulerAngles;
             rotation.z = mid.x * 125;
             camera.transform.eulerAngles = rotation;
+        }
+    }
+
+    public void SkipPreview()
+    {
+        if (RuntimeData.useCustomMusic)
+        {
+            return;
+        }
+
+        if (noteList[0].time - audio.time > 4f)
+        {
+            audio.DOFade(0, 0.5f).OnComplete(() =>
+            {
+                audio.time = noteList[0].time - 3f;
+                audio.DOFade(1, 0.5f);
+            });
+            Utils.FadeOut(0.5f, () =>
+            {
+                Utils.FadeIn(0.5f);
+            });
         }
     }
 }
