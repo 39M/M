@@ -213,8 +213,8 @@ public class GameManager : MonoBehaviour
             deltaTime = Mathf.Clamp01(deltaTime);
             int rangeX = (int)(deltaTime * 512);
             int rangeY = (int)(deltaTime * 384);
-            posX = lastRandomNote.x + Random.Range(Mathf.Clamp(-rangeX, -lastRandomNote.x, 0), Mathf.Clamp(rangeX, 0, osuMaxX - lastRandomNote.x));
-            posY = lastRandomNote.y + Random.Range(Mathf.Clamp(-rangeY, -lastRandomNote.y, 0), Mathf.Clamp(rangeY, 0, osuMaxX - lastRandomNote.y));
+            posX = lastRandomNote.x + Random.Range(Mathf.Max(-rangeX, -lastRandomNote.x), Mathf.Min(rangeX, osuMaxX - lastRandomNote.x));
+            posY = lastRandomNote.y + Random.Range(Mathf.Max(-rangeY, -lastRandomNote.y), Mathf.Min(rangeY, osuMaxX - lastRandomNote.y));
         }
 
         Note note = new Note

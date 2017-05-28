@@ -125,8 +125,8 @@ public class GradeManager : MonoBehaviour
             maxCombo = Mathf.SmoothStep(maxCombo, RuntimeData.maxCombo, 0.1f);
             comboCountLabel.text = (Mathf.RoundToInt(maxCombo)).ToString();
 
-            score += Mathf.Clamp((RuntimeData.score - score), 2f, float.MaxValue) * 5 * Time.deltaTime;
-            score = Mathf.Clamp(score, 0, RuntimeData.score);
+            score += Mathf.Max((RuntimeData.score - score), 2f) * 5 * Time.deltaTime;
+            score = Mathf.Min(score, RuntimeData.score);
             string scoreString = (score / 10000).ToString();
             scoreCountLabel.text = scoreString.Substring(0, Mathf.Min(5, scoreString.Length)) + "%";
 
