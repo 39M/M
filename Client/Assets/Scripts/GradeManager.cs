@@ -127,7 +127,8 @@ public class GradeManager : MonoBehaviour
 
             score += Mathf.Clamp((RuntimeData.score - score), 2f, float.MaxValue) * 5 * Time.deltaTime;
             score = Mathf.Clamp(score, 0, RuntimeData.score);
-            scoreCountLabel.text = (score / 10000).ToString().Substring(0, 5) + "%";
+            string scoreString = (score / 10000).ToString();
+            scoreCountLabel.text = scoreString.Substring(0, Mathf.Min(5, scoreString.Length)) + "%";
 
             if ((Mathf.RoundToInt(hitCount) == RuntimeData.hitCount) &&
                 (Mathf.RoundToInt(missCount) == RuntimeData.missCount) &&
