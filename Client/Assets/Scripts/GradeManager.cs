@@ -135,7 +135,7 @@ public class GradeManager : MonoBehaviour
                 (Mathf.RoundToInt(score) / 100 == RuntimeData.score / 100))
             {
                 scoreAnimationDone = true;
-                rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f).Play();
+                rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f);
             }
         }
     }

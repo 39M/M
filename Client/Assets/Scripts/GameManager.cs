@@ -267,10 +267,10 @@ public class GameManager : MonoBehaviour
 
         if (noteList[0].time - audio.time > 4f)
         {
-            audio.DOFade(0, 0.5f).Play().OnComplete(() =>
+            audio.DOFade(0, 0.5f).OnComplete(() =>
             {
                 audio.time = noteList[0].time - 3f;
-                audio.DOFade(1, 0.5f).Play();
+                audio.DOFade(1, 0.5f);
             });
             Utils.FadeOut(0.5f, () =>
             {
@@ -600,7 +600,7 @@ public class GameManager : MonoBehaviour
 
         float audioFadeDelay = 2;
         float audioFadeTime = 5;
-        audio.DOFade(0, audioFadeTime).SetDelay(audioFadeDelay).Play();
+        audio.DOFade(0, audioFadeTime).SetDelay(audioFadeDelay);
 
         Utils.FadeOut(1, () =>
         {

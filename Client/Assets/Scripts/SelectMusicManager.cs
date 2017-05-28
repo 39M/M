@@ -265,7 +265,7 @@ public class SelectMusicManager : MonoBehaviour
 
         float updatedGroupPosition = -nextFocus * (itemWidth + itemSpacing);
         musicUIGroup.transform.DOPause();
-        musicUIGroup.transform.DOLocalMoveX(updatedGroupPosition, swipeTransitionDuration, true).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+        musicUIGroup.transform.DOLocalMoveX(updatedGroupPosition, swipeTransitionDuration, true).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             Music nextMusic = nextItem.music;
             if (playMusicCoroutine != null)
@@ -274,17 +274,17 @@ public class SelectMusicManager : MonoBehaviour
             }
             playMusicCoroutine = StartCoroutine(LoadAsyncAndPlay(nextMusic));
             bannerBackground.sprite = nextItem.albumImage.sprite;
-            bannerBackground.DOFade(backgroundAlpha, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+            bannerBackground.DOFade(backgroundAlpha, swipeTransitionDuration).SetEase(Ease.OutQuad);
         });
 
-        currentItem.transform.DOScale(itemMinScale, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
-        nextItem.transform.DOScale(itemMaxScale, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        currentItem.transform.DOScale(itemMinScale, swipeTransitionDuration).SetEase(Ease.OutQuad);
+        nextItem.transform.DOScale(itemMaxScale, swipeTransitionDuration).SetEase(Ease.OutQuad);
 
-        currentItem.textGroup.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
-        nextItem.textGroup.DOFade(1, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        currentItem.textGroup.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad);
+        nextItem.textGroup.DOFade(1, swipeTransitionDuration).SetEase(Ease.OutQuad);
 
-        audio.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
-        bannerBackground.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad).Play();
+        audio.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad);
+        bannerBackground.DOFade(0, swipeTransitionDuration).SetEase(Ease.OutQuad);
 
         focusIndex = nextFocus;
     }
@@ -296,7 +296,7 @@ public class SelectMusicManager : MonoBehaviour
         audio.clip = request.asset as AudioClip;
         audio.time = music.previewTime;
         audio.Play();
-        audio.DOFade(1, swipeTransitionDuration).SetEase(Ease.InQuad).Play();
+        audio.DOFade(1, swipeTransitionDuration).SetEase(Ease.InQuad);
     }
 
     void CheckChangeDifficulty()
@@ -349,13 +349,13 @@ public class SelectMusicManager : MonoBehaviour
         Beatmap nextBeatmap = item.music.beatmapList[item.beatmapIndex];
 
         changingDifficulty = true;
-        item.difficultyLabel.DOFade(0, 0.3f).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+        item.difficultyLabel.DOFade(0, 0.3f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             Color color = nextBeatmap.difficultyDisplayColor.ToColor();
             color.a = 0;
             item.difficultyLabel.color = color;
             item.difficultyLabel.text = nextBeatmap.difficultyName;
-            item.difficultyLabel.DOFade(1, 0.3f).SetEase(Ease.OutQuad).Play().OnComplete(() =>
+            item.difficultyLabel.DOFade(1, 0.3f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
                 changingDifficulty = false;
             });
@@ -392,11 +392,11 @@ public class SelectMusicManager : MonoBehaviour
     public void ActiveGameStart()
     {
         callingStartGame = true;
-        transform.DOScale(0, 1).Play().OnComplete(() =>
+        transform.DOScale(0, 1).OnComplete(() =>
         {
             StartGame();
         });
-        musicUIItemList[focusIndex].transform.DOScale(1.2f, 2).SetEase(Ease.Linear).Play();
+        musicUIItemList[focusIndex].transform.DOScale(1.2f, 2).SetEase(Ease.Linear);
     }
 
     public void DeactiveGameStart()
@@ -410,7 +410,7 @@ public class SelectMusicManager : MonoBehaviour
         transform.DOPause();
         transform.localScale = Vector3.one;
         musicUIItemList[focusIndex].transform.DOPause();
-        musicUIItemList[focusIndex].transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad).Play();
+        musicUIItemList[focusIndex].transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
     }
 
     void MoveMusicGroup()
