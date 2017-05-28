@@ -20,7 +20,6 @@ public class GradeManager : MonoBehaviour
     Vector3 canvasVelocity;
 
     Music music;
-    Beatmap beatmap;
 
     public Text perfectCountLabel;
     public Text missCountLabel;
@@ -53,11 +52,6 @@ public class GradeManager : MonoBehaviour
             var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Croatian_Rhapsody");
             music = Music.FromJson(beatmapAsset.text);
         }
-        beatmap = RuntimeData.selectedBeatmap;
-        if (beatmap == null)
-        {
-            beatmap = music.beatmapList[0];
-        }
         bannerBackground.sprite = Utils.LoadBanner(music.bannerFilename);
 
         perfectCountLabel.text = "0";
@@ -74,30 +68,30 @@ public class GradeManager : MonoBehaviour
 
     void SetRank()
     {
-        if (RuntimeData.score > 900000)
+        if (RuntimeData.score > 0.9f)
         {
             rankCountLabel.text = "S";
-            rankCountLabel.color = new Color(255 / 255f, 200 / 255f, 0);
+            rankCountLabel.color = GameConst.RANK_S_COLOR;
         }
-        else if (RuntimeData.score > 800000)
+        else if (RuntimeData.score > 0.8f)
         {
             rankCountLabel.text = "A";
-            rankCountLabel.color = new Color(255 / 255f, 200 / 255f, 0);
+            rankCountLabel.color = GameConst.RANK_A_COLOR;
         }
-        else if (RuntimeData.score > 700000)
+        else if (RuntimeData.score > 0.7f)
         {
             rankCountLabel.text = "B";
-            rankCountLabel.color = new Color(255 / 255f, 200 / 255f, 0);
+            rankCountLabel.color = GameConst.RANK_B_COLOR;
         }
-        else if (RuntimeData.score > 600000)
+        else if (RuntimeData.score > 0.6f)
         {
             rankCountLabel.text = "C";
-            rankCountLabel.color = new Color(255 / 255f, 200 / 255f, 0);
+            rankCountLabel.color = GameConst.RANK_C_COLOR;
         }
         else
         {
             rankCountLabel.text = "D";
-            rankCountLabel.color = new Color(255 / 255f, 200 / 255f, 0);
+            rankCountLabel.color = GameConst.RANK_D_COLOR;
         }
         Color color = rankCountLabel.color;
         color.a = 0;
@@ -117,7 +111,7 @@ public class GradeManager : MonoBehaviour
         if (!scoreAnimationDone)
         {
             hitCount = Mathf.SmoothStep(hitCount, RuntimeData.hitCount, 0.1f);
-            perfectCountLabel.text = string.Format("{0}/{1}", Mathf.RoundToInt(hitCount), beatmap.noteList.Count);
+            perfectCountLabel.text = string.Format("{0}/{1}", Mathf.RoundToInt(hitCount), RuntimeData.hitCount + RuntimeData.missCount);
 
             missCount = Mathf.SmoothStep(missCount, RuntimeData.missCount, 0.1f);
             missCountLabel.text = (Mathf.RoundToInt(missCount)).ToString();
@@ -125,15 +119,14 @@ public class GradeManager : MonoBehaviour
             maxCombo = Mathf.SmoothStep(maxCombo, RuntimeData.maxCombo, 0.1f);
             comboCountLabel.text = (Mathf.RoundToInt(maxCombo)).ToString();
 
-            score += Mathf.Max((RuntimeData.score - score), 2f) * 5 * Time.deltaTime;
-            score = Mathf.Min(score, RuntimeData.score);
-            string scoreString = (score / 10000).ToString();
-            scoreCountLabel.text = scoreString.Substring(0, Mathf.Min(5, scoreString.Length)) + "%";
+            score += Mathf.Max((RuntimeData.score - score), 0.0001f) * 4 * Time.deltaTime;
+            string scoreString = (score * 100).ToString("0.00");
+            scoreCountLabel.text = scoreString.Substring(0, Mathf.Min(6, scoreString.Length)) + "%";
 
             if ((Mathf.RoundToInt(hitCount) == RuntimeData.hitCount) &&
                 (Mathf.RoundToInt(missCount) == RuntimeData.missCount) &&
                 (Mathf.RoundToInt(maxCombo) == RuntimeData.maxCombo) &&
-                (Mathf.RoundToInt(score) / 100 == RuntimeData.score / 100))
+                ((int)(score * 10000) == Mathf.RoundToInt(RuntimeData.score * 10000)))
             {
                 scoreAnimationDone = true;
                 rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f);

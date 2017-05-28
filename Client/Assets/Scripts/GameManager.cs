@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int maxCombo = 0;
     [SerializeField]
-    float score = 0;
+    int comboBonus = 0;
     const float maxScore = 1000000;
     const float hitScorePercentage = 0.8f;
     float displayScore = 0;
@@ -469,7 +469,12 @@ public class GameManager : MonoBehaviour
     void HitNote(int i)
     {
         hitCount++;
-        AddHitScore();
+        comboBonus += comboCount;
+        comboCount++;
+        if (comboCount > maxCombo)
+        {
+            maxCombo = comboCount;
+        }
 
         GameObject noteGameObject = noteObjectList[i].gameObject;
         audio.PlayOneShot(hitSoundClip);
@@ -482,33 +487,6 @@ public class GameManager : MonoBehaviour
         if (noteObjectList.Count <= 0)
         {
             EndGame();
-        }
-    }
-
-    void AddHitScore()
-    {
-        if (RuntimeData.useCustomMusic)
-        {
-            // DO Something
-            score += 100 + (comboCount - 1) * 10;
-            return;
-        }
-
-        // Percentage x Single Hit Score
-        score += (maxScore * hitScorePercentage) * 1 / noteList.Count;
-
-        comboCount++;
-        if (comboCount > maxCombo)
-        {
-            maxCombo = comboCount;
-        }
-        // Percentage x Combo Count x Single Combo Score
-        score += (maxScore * (1 - hitScorePercentage)) * comboCount / (noteList.Count * (noteList.Count + 1) / 2);
-
-        // Snap to max score
-        if (comboCount == noteList.Count)
-        {
-            score = maxScore;
         }
     }
 
@@ -596,7 +574,7 @@ public class GameManager : MonoBehaviour
         RuntimeData.hitCount = hitCount;
         RuntimeData.missCount = missCount;
         RuntimeData.maxCombo = maxCombo;
-        RuntimeData.score = Mathf.RoundToInt(score);
+        RuntimeData.score = CalcFinalScore();
 
         float audioFadeDelay = 2;
         float audioFadeTime = 5;
@@ -606,6 +584,14 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Grade");
         }, audioFadeDelay + audioFadeTime - 1);
+    }
+
+    float CalcFinalScore()
+    {
+        int totalNoteCount = hitCount + missCount;
+        float hitScore = (float)hitCount / (totalNoteCount) * hitScorePercentage;
+        float comboScore = (float)comboBonus / (totalNoteCount * (totalNoteCount - 1) / 2) * (1-hitScorePercentage);
+        return hitScore + comboScore;
     }
 
     void MoveCameraWithHands()

@@ -9,5 +9,5 @@ public static class RuntimeData
     public static int hitCount;
     public static int missCount;
     public static int maxCombo;
-    public static int score;
+    public static float score = 0.55f;
 }
