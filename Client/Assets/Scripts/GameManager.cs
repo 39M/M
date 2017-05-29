@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     // Basic Component
     new Camera camera;
     new AudioSource audio;
+    AudioLowPassFilter lowPassFilter;
     BeatDetection beatDetector;
     AudioSource detectionAudio;
     AudioClip hitSoundClip;
@@ -64,6 +65,10 @@ public class GameManager : MonoBehaviour
     int maxCombo = 0;
     const float hitScorePercentage = 0.8f;
 
+    // HP
+    [SerializeField]
+    float hp = 1f;
+
     // UI
     public Slider hpBar;
     public Text judgementLabel;
@@ -80,6 +85,7 @@ public class GameManager : MonoBehaviour
         camera = Camera.main;
 
         audio = GetComponent<AudioSource>();
+        lowPassFilter = GetComponent<AudioLowPassFilter>();
 
         Transform beatDetectorObject = transform.GetChild(0);
         if (RuntimeData.useCustomMusic)
@@ -129,7 +135,7 @@ public class GameManager : MonoBehaviour
         music = RuntimeData.selectedMusic;
         if (music == null)
         {
-            var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Croatian_Rhapsody");
+            var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Bangarang");
             music = Music.FromJson(beatmapAsset.text);
         }
         beatmap = RuntimeData.selectedBeatmap;
@@ -432,6 +438,7 @@ public class GameManager : MonoBehaviour
         {
             maxCombo = comboCount;
         }
+        AddHP();
 
         GameObject noteGameObject = noteObjectList[i].gameObject;
         audio.PlayOneShot(hitSoundClip);
@@ -451,6 +458,7 @@ public class GameManager : MonoBehaviour
     {
         missCount++;
         comboCount = 0;
+        SubHP();
 
         ShowMissJudgement();
 
@@ -462,6 +470,44 @@ public class GameManager : MonoBehaviour
         if (noteObjectList.Count <= 0)
         {
             EndGame();
+        }
+    }
+
+    float deltaHPAdd = 0.025f;
+    void AddHP()
+    {
+        hp = Mathf.Min(hp + deltaHPAdd, hpBar.maxValue);
+        hpBar.DOValue(hp, 0.5f);
+        SetLowPassFilter();
+    }
+
+    float deltaHPSub = 0.05f;
+    void SubHP()
+    {
+        hp = Mathf.Max(hp - deltaHPSub, hpBar.minValue);
+        hpBar.DOValue(hp, 0.5f);
+        SetLowPassFilter();
+
+        if (hp == hpBar.minValue)
+        {
+            LostGame();
+        }
+    }
+
+    void SetLowPassFilter()
+    {
+        float hpRange = (hpBar.maxValue - hpBar.minValue);
+        if (hp > hpRange * 0.8f)
+        {
+            lowPassFilter.cutoffFrequency = 22000;
+        }
+        else if (hp > hpRange * 0.5f)
+        {
+            lowPassFilter.cutoffFrequency = Mathf.Lerp(4000, 10000, (hp - (hpBar.minValue + (hpRange * 0.5f))) / (hpRange * 0.5f));
+        }
+        else
+        {
+            lowPassFilter.cutoffFrequency = Mathf.Lerp(1000, 4000, (hp - hpBar.minValue) / (hpRange * 0.5f));
         }
     }
 
@@ -500,10 +546,10 @@ public class GameManager : MonoBehaviour
         }
 
         judgementLabel.DOColor(color, judgementScaleTweenDuration);
-        judgementLabel.transform.DOScale(1.3f, judgementScaleTweenDuration).OnComplete(() =>
+        judgementLabel.transform.DOScale(2.6f, judgementScaleTweenDuration).OnComplete(() =>
         {
-            judgementLabel.transform.DOScale(1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
-            judgementLabel.DOFade(0.1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay).OnComplete(() =>
+            judgementLabel.transform.DOScale(2f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
+            judgementLabel.DOFade(0.3f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay).OnComplete(() =>
             {
                 judgementLabelTweener = judgementLabel.DOFade(0, 1).SetDelay(0.5f);
             });
@@ -541,6 +587,24 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Grade");
         }, audioFadeDelay + audioFadeTime - 1);
+    }
+
+    void LostGame()
+    {
+        float pitchFadeDuration = 3f;
+        float audioFadeDuration = 0.5f;
+        audio.DOPitch(0, pitchFadeDuration);
+        audio.DOFade(0, audioFadeDuration).SetDelay(pitchFadeDuration - audioFadeDuration);
+
+        float screenFadeDuration = 1f;
+        Utils.FadeOut(screenFadeDuration, () =>
+        {
+            StartCoroutine(Utils.WaitAndAction(0.1f, () =>
+            {
+                string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";
+                SceneManager.LoadScene(scene);
+            }));
+        }, pitchFadeDuration - screenFadeDuration);
     }
 
     float CalcFinalScore()
