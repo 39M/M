@@ -354,7 +354,8 @@ public class BeatDetection : MonoBehaviour
 
         for (int i = 1; i < totalBfLen; i++)
         {
-            float instant, E = 0f, V = 0f, C = 0f, diff, dAvg, diff2;
+            float instant, E = 0f, V = 0f, C = 0f, diff, dAvg;
+            //float diff2;
             instant = averages[i];
 
             //instant=Mathf.Sqrt(instant)*100f;
@@ -387,7 +388,7 @@ public class BeatDetection : MonoBehaviour
             if (num > 0)
                 dAvg /= (float)num;
 
-            diff2 = (float)Mathf.Max(diff - dAvg, 0);
+            //diff2 = (float)Mathf.Max(diff - dAvg, 0);
 
             float corte, mul;
             if (i < 7)
