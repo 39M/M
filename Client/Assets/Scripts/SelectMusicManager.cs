@@ -69,7 +69,7 @@ public class SelectMusicManager : MonoBehaviour
 
         minSwipeSpeed = 1f;
 
-        focusIndex = 0;
+        focusIndex = RuntimeData.selectedMusicIndex;
 
         lockRightControl = false;
         lockLeftControl = false;
@@ -169,6 +169,10 @@ public class SelectMusicManager : MonoBehaviour
 
     void SetDefaultFocusItem(MusicUIItem item)
     {
+        item.beatmapIndex = RuntimeData.selectedBeatmapIndex;
+        item.difficultyLabel.text = item.music.beatmapList[item.beatmapIndex].difficultyName;
+        item.difficultyLabel.color = item.music.beatmapList[item.beatmapIndex].difficultyDisplayColor.ToColor();
+
         item.transform.localScale = Vector3.one * itemMaxScale;
 
         item.textGroup.alpha = 1;
@@ -379,6 +383,8 @@ public class SelectMusicManager : MonoBehaviour
         calledStartGame = true;
 
         RuntimeData.useCustomMusic = false;
+        RuntimeData.selectedMusicIndex = focusIndex;
+        RuntimeData.selectedBeatmapIndex = beatmapIndex;
         RuntimeData.selectedMusic = music;
         RuntimeData.selectedBeatmap = music.beatmapList[beatmapIndex];
 

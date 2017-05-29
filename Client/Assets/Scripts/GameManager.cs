@@ -580,7 +580,7 @@ public class GameManager : MonoBehaviour
         RuntimeData.score = CalcFinalScore();
 
         float audioFadeDelay = 2;
-        float audioFadeTime = 5;
+        float audioFadeTime = 2;
         audio.DOFade(0, audioFadeTime).SetDelay(audioFadeDelay);
 
         Utils.FadeOut(1, () =>
