@@ -46,7 +46,7 @@ public static class Utils
             {
                 childTransform.gameObject.SetActive(true);
                 Image image = childTransform.Find("Mask").GetComponent<Image>();
-                image.DOFade(1, duration).SetEase(Ease.InOutCubic).SetDelay(delay).OnComplete(onComplete);
+                image.DOFade(1.1f, duration).SetDelay(delay).OnComplete(onComplete);
                 break;
             }
         }
@@ -59,7 +59,7 @@ public static class Utils
 
         Transform fadePanelTransform = uiCanvas.transform.Find("FadePanel");
         Image image = fadePanelTransform.Find("Mask").GetComponent<Image>();
-        image.DOFade(0, duration).SetEase(Ease.InOutCubic).SetDelay(delay).OnComplete(() =>
+        image.DOFade(-0.1f, duration).SetDelay(delay).OnComplete(() =>
         {
             fadePanelTransform.gameObject.SetActive(false);
             if (onComplete != null)
