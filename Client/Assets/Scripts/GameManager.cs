@@ -244,7 +244,10 @@ public class GameManager : MonoBehaviour
 
     void CustomModeUpdate()
     {
-
+        if (audio.clip.length - audio.time < endGameAudioFadeDelay + endGameAudioFadeTime)
+        {
+            EndGame();
+        }
     }
 
     void OnBeat(BeatDetection.EventInfo eventInfo)
@@ -451,7 +454,7 @@ public class GameManager : MonoBehaviour
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
 
-        if (noteObjectList.Count <= 0)
+        if (!RuntimeData.useCustomMusic && noteObjectList.Count <= 0 && currentNote == null)
         {
             EndGame();
         }
@@ -471,7 +474,7 @@ public class GameManager : MonoBehaviour
         Destroy(noteGameObject);
         noteObjectList.RemoveAt(i);
 
-        if (noteObjectList.Count <= 0)
+        if (!RuntimeData.useCustomMusic && noteObjectList.Count <= 0 && currentNote == null)
         {
             EndGame();
         }
@@ -596,6 +599,8 @@ public class GameManager : MonoBehaviour
         });
     }
 
+    const float endGameAudioFadeDelay = 2;
+    const float endGameAudioFadeTime = 2;
     void EndGame()
     {
         gameEnd = true;
@@ -605,14 +610,12 @@ public class GameManager : MonoBehaviour
         RuntimeData.maxCombo = maxCombo;
         RuntimeData.score = CalcFinalScore();
 
-        float audioFadeDelay = 2;
-        float audioFadeTime = 2;
-        audio.DOFade(0, audioFadeTime).SetDelay(audioFadeDelay);
+        audio.DOFade(0, endGameAudioFadeTime).SetDelay(endGameAudioFadeDelay);
 
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Grade");
-        }, audioFadeDelay + audioFadeTime - 1);
+        }, endGameAudioFadeDelay + endGameAudioFadeTime - 1);
     }
 
     void LostGame()
