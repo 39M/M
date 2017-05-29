@@ -35,17 +35,17 @@ public class GameManager : MonoBehaviour
     List<NoteObject> noteObjectList;
 
     // Note spawn and move
-    float defaultNoteSpawnDistance = 15f;
-    float defaultNoteSpeed = 1f;
+    const float defaultNoteSpawnDistance = 7.5f;
+    const float defaultNoteSpeed = 1f;
     float noteSpawnAdvanceTime;
 
     float noteSpawnPosXMultiplier;
     //float noteSpawnPosYMultiplier;
-    float noteSpawnDispersion = 1.5f;
+    const float noteSpawnDispersion = 0.325f;
 
     // Check hit/miss
-    float checkStartDistance = 0.25f;
-    float missDistance = 0f;
+    const float checkStartDistance = 0.25f;
+    const float missDistance = 0f;
     float noteDestroyDistance;
 
     // Effect
@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     // UI
     public Slider hpBar;
     public Text judgementLabel;
+    public Text comboLabel;
     public Tweener judgementLabelTweener;
     public UnityEngine.UI.Image judgementLine;
 
@@ -125,8 +126,9 @@ public class GameManager : MonoBehaviour
         }
 
         // Init UI
-        hpBar.value = 1;
+        hpBar.value = hpBar.maxValue;
         judgementLabel.text = "";
+        ResetCombo();
     }
 
     void InitWithBuildInBeatmap()
@@ -295,7 +297,7 @@ public class GameManager : MonoBehaviour
 
     const float worldWidth = 0.25f;
     //const float worldHeight = 0.03f;
-    const float baseSpawnY = 6f;
+    const float baseSpawnY = defaultNoteSpawnDistance * 0.4f;
     const float floatRangeY = 1.5f;
     void CreateOneNote(Note note)
     {
@@ -438,6 +440,7 @@ public class GameManager : MonoBehaviour
         {
             maxCombo = comboCount;
         }
+        ShowCombo();
         AddHP();
 
         GameObject noteGameObject = noteObjectList[i].gameObject;
@@ -458,6 +461,7 @@ public class GameManager : MonoBehaviour
     {
         missCount++;
         comboCount = 0;
+        ResetCombo();
         SubHP();
 
         ShowMissJudgement();
@@ -540,10 +544,7 @@ public class GameManager : MonoBehaviour
         judgementLabel.text = name;
         judgementLabel.fontSize = fontSize;
 
-        if (judgementLabelTweener != null && judgementLabelTweener.IsPlaying())
-        {
-            DOTween.Kill(judgementLabel);
-        }
+        judgementLabel.DOKill();
 
         judgementLabel.DOColor(color, judgementScaleTweenDuration);
         judgementLabel.transform.DOScale(2.6f, judgementScaleTweenDuration).OnComplete(() =>
@@ -559,6 +560,31 @@ public class GameManager : MonoBehaviour
         {
             judgementLine.DOColor(GameConst.JUDGEMENT_LINE_DEFAULT_COLOR, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
         });
+    }
+
+    const string comboFormat = "Combo: {0}";
+    void ShowCombo()
+    {
+        comboLabel.text = string.Format(comboFormat, comboCount);
+
+        comboLabel.DOKill();
+
+        comboLabel.DOFade(1, judgementScaleTweenDuration);
+        comboLabel.transform.DOScale(1.2f, judgementScaleTweenDuration * 2).OnComplete(() =>
+        {
+            comboLabel.transform.DOScale(1f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
+            comboLabel.DOFade(0.6f, judgementScaleTweenDuration).SetDelay(judgementScaleTweenDelay);
+        });
+    }
+
+    void ResetCombo()
+    {
+        comboLabel.text = string.Format(comboFormat, 0);
+
+        comboLabel.DOKill();
+
+        comboLabel.transform.DOScale(0.8f, judgementScaleTweenDuration);
+        comboLabel.DOFade(0.2f, judgementScaleTweenDuration);
     }
 
     void ScreenShake(float range)
