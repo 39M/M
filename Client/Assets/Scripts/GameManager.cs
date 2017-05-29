@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
 
         beatDetector.CallBackFunction = OnBeat;
         detectionAudio.clip = RuntimeData.selectedClip;
-        detectionAudio.pitch = 7.5f;
+        detectionAudio.pitch = 1;
         detectionAudio.Play();
 
         StartCoroutine(Utils.WaitAndAction(noteSpawnAdvanceTime / detectionAudio.pitch, () =>
