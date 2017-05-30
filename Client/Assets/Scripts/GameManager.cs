@@ -210,6 +210,9 @@ public class GameManager : MonoBehaviour
 
             MoveNotes();
             CheckHit();
+
+            CheckPauseGame();
+            CheckQuitGame();
         }
     }
 
@@ -634,6 +637,58 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(scene);
             }));
         }, pitchFadeDuration - screenFadeDuration);
+    }
+
+    void CheckPauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TogglePauseGame();
+        }
+    }
+
+    bool gamePaused = false;
+    void TogglePauseGame()
+    {
+        if (audio.time <= 0.001f)
+        {
+            return;
+        }
+
+        gamePaused = !gamePaused;
+        if (gamePaused)
+        {
+            audio.Pause();
+            if (RuntimeData.useCustomMusic)
+            {
+                detectionAudio.Pause();
+            }
+        }
+        else
+        {
+            audio.Play();
+            if (RuntimeData.useCustomMusic && audio.clip.length - audio.time > noteSpawnAdvanceTime)
+            {
+                detectionAudio.Play();
+            }
+        }
+    }
+
+    void CheckQuitGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
+    }
+
+    void QuitGame()
+    {
+        Utils.FadeOut(1, () =>
+        {
+            string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";
+            SceneManager.LoadScene(scene);
+        });
     }
 
     float CalcFinalScore()
