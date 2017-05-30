@@ -42,6 +42,8 @@ public class CustomMusicManager : MonoBehaviour
 
     void Update()
     {
+        CheckBackToStartup();
+
         MoveMusicGroup();
     }
 
@@ -130,6 +132,29 @@ public class CustomMusicManager : MonoBehaviour
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
+        });
+    }
+
+    void CheckBackToStartup()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToStartup();
+        }
+    }
+
+    bool backingToStartup = false;
+    void BackToStartup()
+    {
+        if (backingToStartup)
+        {
+            return;
+        }
+        backingToStartup = true;
+
+        Utils.FadeOut(1, () =>
+        {
+            SceneManager.LoadScene("Startup");
         });
     }
 

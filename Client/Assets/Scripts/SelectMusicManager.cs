@@ -95,6 +95,7 @@ public class SelectMusicManager : MonoBehaviour
         CheckSwipe();
         CheckChangeDifficulty();
         CheckGameStart();
+        CheckBackToStartup();
 
         MoveMusicGroup();
     }
@@ -417,6 +418,29 @@ public class SelectMusicManager : MonoBehaviour
         transform.localScale = Vector3.one;
         musicUIItemList[focusIndex].transform.DOPause();
         musicUIItemList[focusIndex].transform.DOScale(1, 0.3f).SetEase(Ease.OutQuad);
+    }
+
+    void CheckBackToStartup()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToStartup();
+        }
+    }
+
+    bool backingToStartup = false;
+    void BackToStartup()
+    {
+        if (backingToStartup)
+        {
+            return;
+        }
+        backingToStartup = true;
+
+        Utils.FadeOut(1, () =>
+        {
+            SceneManager.LoadScene("Startup");
+        });
     }
 
     void MoveMusicGroup()
