@@ -103,6 +103,9 @@ public class GradeManager : MonoBehaviour
         MoveMusicGroup();
         PlayScoreAnimation();
         PlayLensFlareAnimation();
+
+        CheckRestartGame();
+        CheckBackToMenu();
     }
 
     bool scoreAnimationDone = false;
@@ -165,5 +168,52 @@ public class GradeManager : MonoBehaviour
         {
             canvasTransform.position = Vector3.SmoothDamp(canvasTransform.position, canvasBasePosition, ref canvasVelocity, 0.1f);
         }
+    }
+
+    void CheckRestartGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RestartGame();
+        }
+    }
+
+    bool restartingGame = false;
+    void RestartGame()
+    {
+        if (restartingGame || backingToMenu)
+        {
+            return;
+        }
+        restartingGame = true;
+
+        Utils.FadeOut(1, () =>
+        {
+            SceneManager.LoadScene("Game");
+        });
+    }
+
+    void CheckBackToMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToMenu();
+        }
+    }
+
+    bool backingToMenu = false;
+    void BackToMenu()
+    {
+        if (restartingGame || backingToMenu)
+        {
+            return;
+        }
+        backingToMenu = true;
+
+        Utils.FadeOut(1, () =>
+        {
+            string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";
+            SceneManager.LoadScene(scene);
+        });
     }
 }
