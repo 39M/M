@@ -43,6 +43,10 @@ public class StartupManager : MonoBehaviour
         {
             GoToSelectMusic();
         }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitGame();
+        }
     }
 
     bool madeChoice = false;
@@ -63,6 +67,16 @@ public class StartupManager : MonoBehaviour
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("CustomMusic");
+        });
+    }
+
+    void ExitGame()
+    {
+        madeChoice = true;
+
+        Utils.FadeOut(1, () =>
+        {
+            Application.Quit();
         });
     }
 }
