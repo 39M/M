@@ -682,8 +682,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    bool quitingGame = false;
     void QuitGame()
     {
+        if (quitingGame)
+        {
+            return;
+        }
+        quitingGame = true;
+
         Utils.FadeOut(1, () =>
         {
             string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";
