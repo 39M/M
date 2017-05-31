@@ -25,7 +25,11 @@ public class GradeManager : MonoBehaviour
     public Text missCountLabel;
     public Text comboCountLabel;
     public Text scoreCountLabel;
+    public CanvasGroup rankGroup;
     public Text rankCountLabel;
+    public RectTransform backOption;
+    public RectTransform retryOption;
+
     float hitCount = 0;
     float missCount = 0;
     float maxCombo = 0;
@@ -93,9 +97,8 @@ public class GradeManager : MonoBehaviour
             rankCountLabel.text = "D";
             rankCountLabel.color = GameConst.RANK_D_COLOR;
         }
-        Color color = rankCountLabel.color;
-        color.a = 0;
-        rankCountLabel.color = color;
+
+        rankGroup.alpha = 0f;
     }
 
     void Update()
@@ -104,6 +107,7 @@ public class GradeManager : MonoBehaviour
         PlayScoreAnimation();
         PlayLensFlareAnimation();
 
+        CheckSwipe();
         CheckRestartGame();
         CheckBackToMenu();
     }
@@ -132,7 +136,7 @@ public class GradeManager : MonoBehaviour
                 ((int)(score * 10000) == Mathf.RoundToInt(RuntimeData.score * 10000)))
             {
                 scoreAnimationDone = true;
-                rankCountLabel.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f);
+                rankGroup.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f);
             }
         }
     }
@@ -170,6 +174,89 @@ public class GradeManager : MonoBehaviour
         }
     }
 
+    enum Choices { None, Retry, Back }
+    Choices choice = Choices.None;
+    float minSwipeSpeed = 1f;
+    void CheckSwipe()
+    {
+        if (!scoreAnimationDone || choosing || madeChoice)
+        {
+            return;
+        }
+
+        Frame frame = provider.CurrentFrame;
+        foreach (Hand hand in frame.Hands)
+        {
+            if (hand.PalmVelocity.x > minSwipeSpeed)
+            {
+                SwipeTo(Direction.Right);
+            }
+            else if (hand.PalmVelocity.x < -minSwipeSpeed)
+            {
+                SwipeTo(Direction.Left);
+            }
+
+            break;
+        }
+    }
+
+    void SwipeTo(Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            choice = Choices.Retry;
+            retryOption.DOScale(0.625f, 0.3f);
+            backOption.DOScale(0.5f, 0.3f);
+        }
+        else if (direction == Direction.Right)
+        {
+            choice = Choices.Back;
+            backOption.DOScale(0.625f, 0.3f);
+            retryOption.DOScale(0.5f, 0.3f);
+        }
+    }
+
+    bool choosing = false;
+    public void ActiveChoosing()
+    {
+        choosing = true;
+
+        if (choice == Choices.Back)
+        {
+            transform.DOScale(0, 1).OnComplete(() =>
+            {
+                BackToMenu();
+            });
+            backOption.DOScale(0.875f, 2);
+        }
+        else if (choice == Choices.Retry)
+        {
+            transform.DOScale(0, 1).OnComplete(() =>
+            {
+                RestartGame();
+            });
+            retryOption.DOScale(0.875f, 2);
+        }
+    }
+
+    public void DeactiveChoosing()
+    {
+        choosing = false;
+
+        transform.DOPause();
+        transform.localScale = Vector3.one;
+        if (choice == Choices.Back)
+        {
+            backOption.DOPause();
+            backOption.DOScale(0.625f, 0.3f);
+        }
+        else if (choice == Choices.Retry)
+        {
+            retryOption.DOPause();
+            retryOption.DOScale(0.625f, 0.3f);
+        }
+    }
+
     void CheckRestartGame()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -178,14 +265,14 @@ public class GradeManager : MonoBehaviour
         }
     }
 
-    bool restartingGame = false;
+    bool madeChoice = false;
     void RestartGame()
     {
-        if (restartingGame || backingToMenu)
+        if (madeChoice)
         {
             return;
         }
-        restartingGame = true;
+        madeChoice = true;
 
         Utils.FadeOut(1, () =>
         {
@@ -201,14 +288,13 @@ public class GradeManager : MonoBehaviour
         }
     }
 
-    bool backingToMenu = false;
     void BackToMenu()
     {
-        if (restartingGame || backingToMenu)
+        if (madeChoice)
         {
             return;
         }
-        backingToMenu = true;
+        madeChoice = true;
 
         Utils.FadeOut(1, () =>
         {
