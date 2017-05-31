@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     float noteSpawnPosXMultiplier;
     //float noteSpawnPosYMultiplier;
-    const float noteSpawnDispersion = 0.325f;
+    const float noteSpawnDispersion = 1.5f;
 
     // Check hit/miss
     const float checkStartDistance = 0.25f;
