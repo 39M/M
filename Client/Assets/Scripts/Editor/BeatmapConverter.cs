@@ -67,6 +67,7 @@ public class BeatmapConverter
                     {
                         music.audioFilename = value;
                         music.bannerFilename = value;
+                        music.soundEffectFilename = value;
                     }
                     else if (line.StartsWith("PreviewTime"))
                     {
