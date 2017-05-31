@@ -247,8 +247,10 @@ public class GameManager : MonoBehaviour
 
     void CustomModeUpdate()
     {
-        if (audio.clip.length - audio.time < endGameAudioFadeDelay + endGameAudioFadeTime)
+        if (audio.clip.length - audio.time < 0.01f)
         {
+            endGameAudioFadeDelay = 0;
+            endGameAudioFadeTime = 0;
             EndGame();
         }
     }
@@ -602,8 +604,8 @@ public class GameManager : MonoBehaviour
         });
     }
 
-    const float endGameAudioFadeDelay = 2;
-    const float endGameAudioFadeTime = 2;
+    float endGameAudioFadeDelay = 2;
+    float endGameAudioFadeTime = 2;
     void EndGame()
     {
         gameEnd = true;

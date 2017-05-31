@@ -255,6 +255,11 @@ public class GradeManager : MonoBehaviour
 
     public void DeactiveChoosing()
     {
+        if (madeChoice)
+        {
+            return;
+        }
+
         choosing = false;
 
         transform.DOPause();
