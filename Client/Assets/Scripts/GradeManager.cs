@@ -68,6 +68,19 @@ public class GradeManager : MonoBehaviour
         lensFlare.transform.localPosition = Vector3.zero;
         lensFlare.transform.DOLocalMove(new Vector3(-290f, 140f), 2).SetDelay(0.5f);
         lensFlare.brightness = 0;
+
+        if (RuntimeData.useCustomMusic)
+        {
+            audio.clip = RuntimeData.selectedClip;
+        }
+        else
+        {
+            audio.clip = Utils.LoadAudio(music.audioFilename);
+            audio.time = music.previewTime;
+        }
+        audio.volume = 0;
+        audio.DOFade(0.05f, 1f);
+        audio.Play();
     }
 
     void SetRank()
@@ -127,13 +140,14 @@ public class GradeManager : MonoBehaviour
             comboCountLabel.text = (Mathf.RoundToInt(maxCombo)).ToString();
 
             score += Mathf.Max((RuntimeData.score - score), 0.0001f) * 4 * Time.deltaTime;
+            score = Mathf.Min(score, RuntimeData.score);
             string scoreString = (score * 100).ToString("0.00");
             scoreCountLabel.text = scoreString.Substring(0, Mathf.Min(6, scoreString.Length)) + "%";
 
             if ((Mathf.RoundToInt(hitCount) == RuntimeData.hitCount) &&
                 (Mathf.RoundToInt(missCount) == RuntimeData.missCount) &&
                 (Mathf.RoundToInt(maxCombo) == RuntimeData.maxCombo) &&
-                ((int)(score * 10000) == Mathf.RoundToInt(RuntimeData.score * 10000)))
+                (Mathf.Abs(RuntimeData.score - score) < 0.00005f))
             {
                 scoreAnimationDone = true;
                 rankGroup.DOFade(1, 0.75f).SetEase(Ease.InOutCubic).SetDelay(0.5f);
@@ -274,6 +288,7 @@ public class GradeManager : MonoBehaviour
         }
         madeChoice = true;
 
+        audio.DOFade(0, 1f);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
@@ -296,6 +311,7 @@ public class GradeManager : MonoBehaviour
         }
         madeChoice = true;
 
+        audio.DOFade(0, 1f);
         Utils.FadeOut(1, () =>
         {
             string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";
