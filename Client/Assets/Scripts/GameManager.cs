@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     // Check hit/miss
     const float checkStartDistance = 0.25f;
-    const float missDistance = 0f;
+    const float missDistance = 0.025f;
     float noteDestroyDistance;
 
     // Effect
