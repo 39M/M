@@ -92,7 +92,7 @@ public class SimpleColor
 
     public Color ToColor()
     {
-        return new Color(r / 255, g / 255, b / 255, a);
+        return new Color(r, g, b, a);
     }
 }
 
