@@ -426,6 +426,30 @@ public class SelectMusicManager : MonoBehaviour
         {
             BackToStartup();
         }
+
+        var hands = provider.CurrentFrame.Hands;
+        if (hands.Count >= 2)
+        {
+            bool leftSwipe = false;
+            bool rightSwipe = false;
+            foreach (var hand in hands)
+            {
+                if (hand.IsRight && hand.PalmVelocity.x > minSwipeSpeed)
+                {
+                    rightSwipe = true;
+                }
+
+                if (hand.IsLeft && hand.PalmVelocity.x < -minSwipeSpeed)
+                {
+                    leftSwipe = true;
+                }
+            }
+
+            if (rightSwipe && leftSwipe)
+            {
+                BackToStartup();
+            }
+        }
     }
 
     bool backingToStartup = false;
