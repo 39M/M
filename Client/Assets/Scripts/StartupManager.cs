@@ -12,6 +12,9 @@ public class StartupManager : MonoBehaviour
 {
     public LeapProvider provider;
 
+    public RectTransform customOption;
+    public RectTransform selectOption;
+
     void Awake()
     {
 
@@ -28,7 +31,94 @@ public class StartupManager : MonoBehaviour
         CheckChoice();
     }
 
+    enum Choices { None, Custom, BuildIn }
+    Choices choice = Choices.None;
     float minSwipeSpeed = 1f;
+    void CheckSwipe()
+    {
+        if (choosing || madeChoice)
+        {
+            return;
+        }
+
+        Frame frame = provider.CurrentFrame;
+        foreach (Hand hand in frame.Hands)
+        {
+            if (hand.PalmVelocity.x > minSwipeSpeed)
+            {
+                SwipeTo(Direction.Right);
+            }
+            else if (hand.PalmVelocity.x < -minSwipeSpeed)
+            {
+                SwipeTo(Direction.Left);
+            }
+
+            break;
+        }
+    }
+
+    void SwipeTo(Direction direction)
+    {
+        if (direction == Direction.Left)
+        {
+            choice = Choices.Custom;
+            customOption.DOScale(0.6f, 0.3f);
+            selectOption.DOScale(0.5f, 0.3f);
+        }
+        else if (direction == Direction.Right)
+        {
+            choice = Choices.BuildIn;
+            selectOption.DOScale(0.6f, 0.3f);
+            customOption.DOScale(0.5f, 0.3f);
+        }
+    }
+
+    bool choosing = false;
+    public void ActiveChoosing()
+    {
+        choosing = true;
+
+        if (choice == Choices.BuildIn)
+        {
+            transform.DOScale(0, 1).OnComplete(() =>
+            {
+                GoToSelectMusic();
+            });
+            selectOption.DOScale(0.7f, 2);
+        }
+        else if (choice == Choices.Custom)
+        {
+            transform.DOScale(0, 1).OnComplete(() =>
+            {
+                GoToCustomMusic();
+            });
+            customOption.DOScale(0.7f, 2);
+        }
+    }
+
+    public void DeactiveChoosing()
+    {
+        if (madeChoice)
+        {
+            return;
+        }
+
+        choosing = false;
+
+        transform.DOPause();
+        transform.localScale = Vector3.one;
+        if (choice == Choices.BuildIn)
+        {
+            customOption.DOPause();
+            customOption.DOScale(0.6f, 0.3f);
+        }
+        else if (choice == Choices.Custom)
+        {
+            selectOption.DOPause();
+            selectOption.DOScale(0.6f, 0.3f);
+        }
+    }
+
     void CheckChoice()
     {
         if (madeChoice)
@@ -74,6 +164,8 @@ public class StartupManager : MonoBehaviour
                 }
             }
         }
+
+        CheckSwipe();
     }
 
     bool madeChoice = false;
