@@ -18,6 +18,7 @@ public class GradeManager : MonoBehaviour
     Transform canvasTransform;
     Vector3 canvasBasePosition;
     Vector3 canvasVelocity;
+    public CanvasGroup canvasGroup;
 
     Music music;
 
@@ -43,6 +44,7 @@ public class GradeManager : MonoBehaviour
         audio = GetComponent<AudioSource>();
         canvasTransform = GameObject.Find("Canvas").transform;
         canvasBasePosition = canvasTransform.position;
+        canvasGroup.alpha = 0;
     }
 
     void Start()
@@ -81,6 +83,8 @@ public class GradeManager : MonoBehaviour
         audio.volume = 0;
         audio.DOFade(0.05f, 1f);
         audio.Play();
+
+        canvasGroup.DOFade(1, 1);
     }
 
     void SetRank()
@@ -294,6 +298,9 @@ public class GradeManager : MonoBehaviour
         madeChoice = true;
 
         audio.DOFade(0, 1f);
+        canvasGroup.DOFade(0, 1);
+        lensFlareReference.transform.DOPause();
+        lensFlareReference.transform.DOMove(Vector3.zero, 1);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
@@ -317,6 +324,9 @@ public class GradeManager : MonoBehaviour
         madeChoice = true;
 
         audio.DOFade(0, 1f);
+        canvasGroup.DOFade(0, 1);
+        lensFlareReference.transform.DOPause();
+        lensFlareReference.transform.DOMove(Vector3.zero, 1);
         Utils.FadeOut(1, () =>
         {
             string scene = RuntimeData.useCustomMusic ? "CustomMusic" : "SelectMusic";

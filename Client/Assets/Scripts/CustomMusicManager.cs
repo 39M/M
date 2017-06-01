@@ -21,6 +21,7 @@ public class CustomMusicManager : MonoBehaviour
     public GameObject musicUIGroup;
     public GameObject musicUIItemPrefab;
     List<CustomMusicUIItem> musicUIItemList;
+    public CanvasGroup canvasGroup;
 
     float fadeDuration = 0.5f;
 
@@ -29,6 +30,8 @@ public class CustomMusicManager : MonoBehaviour
         audio = GetComponent<AudioSource>();
         canvasTransform = GameObject.Find("Canvas").transform;
         canvasBasePosition = canvasTransform.position;
+
+        canvasGroup.alpha = 0;
     }
 
     void Start()
@@ -38,6 +41,8 @@ public class CustomMusicManager : MonoBehaviour
 
         // Init Music Group
         InitMusicGroup();
+
+        canvasGroup.DOFade(1, 1);
     }
 
     void Update()
@@ -129,6 +134,7 @@ public class CustomMusicManager : MonoBehaviour
         RuntimeData.useCustomMusic = true;
         RuntimeData.selectedClip = clip;
 
+        canvasGroup.DOFade(0, 1);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
@@ -177,6 +183,7 @@ public class CustomMusicManager : MonoBehaviour
         }
         backingToStartup = true;
 
+        canvasGroup.DOFade(0, 1);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Startup");

@@ -33,6 +33,7 @@ public class SelectMusicManager : MonoBehaviour
     public GameObject musicUIItemPrefab;
     List<MusicUIItem> musicUIItemList;
     int focusIndex;
+    public CanvasGroup canvasGroup;
 
     float itemWidth;
     float itemSpacing;
@@ -78,6 +79,7 @@ public class SelectMusicManager : MonoBehaviour
         negativeUnlockDelay = 0.5f;
 
         backgroundAlpha = bannerBackground.color.a;
+        canvasGroup.alpha = 0;
     }
 
     void Start()
@@ -88,6 +90,8 @@ public class SelectMusicManager : MonoBehaviour
         // Load Music List
         LoadMusicList();
         InitMusicGroup();
+
+        canvasGroup.DOFade(1, 1);
     }
 
     void Update()
@@ -389,6 +393,7 @@ public class SelectMusicManager : MonoBehaviour
         RuntimeData.selectedMusic = music;
         RuntimeData.selectedBeatmap = music.beatmapList[beatmapIndex];
 
+        canvasGroup.DOFade(0, 1);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Game");
@@ -461,6 +466,7 @@ public class SelectMusicManager : MonoBehaviour
         }
         backingToStartup = true;
 
+        canvasGroup.DOFade(0, 1);
         Utils.FadeOut(1, () =>
         {
             SceneManager.LoadScene("Startup");
