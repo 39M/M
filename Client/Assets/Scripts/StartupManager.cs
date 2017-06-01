@@ -109,13 +109,13 @@ public class StartupManager : MonoBehaviour
         transform.localScale = Vector3.one;
         if (choice == Choices.BuildIn)
         {
-            customOption.DOPause();
-            customOption.DOScale(0.6f, 0.3f);
+            selectOption.DOPause();
+            selectOption.DOScale(0.6f, 0.3f);
         }
         else if (choice == Choices.Custom)
         {
-            selectOption.DOPause();
-            selectOption.DOScale(0.6f, 0.3f);
+            customOption.DOPause();
+            customOption.DOScale(0.6f, 0.3f);
         }
     }
 
