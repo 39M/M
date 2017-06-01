@@ -28,6 +28,7 @@ public class StartupManager : MonoBehaviour
         CheckChoice();
     }
 
+    float minSwipeSpeed = 1f;
     void CheckChoice()
     {
         if (madeChoice)
@@ -46,6 +47,32 @@ public class StartupManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitGame();
+        }
+        else
+        {
+            var hands = provider.CurrentFrame.Hands;
+            if (hands.Count >= 2)
+            {
+                bool leftSwipe = false;
+                bool rightSwipe = false;
+                foreach (var hand in hands)
+                {
+                    if (hand.IsRight && hand.PalmVelocity.x > minSwipeSpeed)
+                    {
+                        rightSwipe = true;
+                    }
+
+                    if (hand.IsLeft && hand.PalmVelocity.x < -minSwipeSpeed)
+                    {
+                        leftSwipe = true;
+                    }
+                }
+
+                if (rightSwipe && leftSwipe)
+                {
+                    ExitGame();
+                }
+            }
         }
     }
 
