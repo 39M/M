@@ -53,7 +53,7 @@ public class GradeManager : MonoBehaviour
         music = RuntimeData.selectedMusic;
         if (music == null)
         {
-            var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Croatian_Rhapsody");
+            var beatmapAsset = Resources.Load<TextAsset>(GameConst.BEATMAP_PATH + "Bangarang");
             music = Music.FromJson(beatmapAsset.text);
         }
         bannerBackground.sprite = Utils.LoadBanner(music.bannerFilename);
